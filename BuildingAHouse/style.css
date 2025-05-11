@@ -1,0 +1,268 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  font-size:100px;
+  background-color: white;
+  font-family: Arial, Helvetica, '微軟正黑', sans-serif;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+}
+.nav h1{}
+
+.nav h1 img{}
+
+.nav ul{
+  display: flex;
+}
+.nav ul li{
+  list-style: none;
+  margin: 0 45px;
+ 
+}
+.nav ul li a{
+  text-decoration: none;
+
+}
+.nav ul li a:hover{}
+
+.header{
+  color: white;
+  padding: 400px;
+  background-image: url('./images/banner.jpg');
+  background-size: cover;
+
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.header h1{
+  font-size: 300px;
+  width:1500px;
+  margin-bottom: 100px;
+  font-family: "Skranji", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+.header h4{
+  width: 1500px;
+  font-weight: normal;
+  margin-bottom: 300px;
+}
+
+.header input{
+  width: 800px;
+
+  font-size: 100px;
+  padding: 20px 70px;
+}
+
+.header p{
+  display: inline-block;
+  font-size: 100px;
+  padding: 20px 70px;
+  background-color: rgb(57, 57, 57);
+}
+
+
+.content{}
+
+.content .b1{
+
+  color: white;
+  padding: 100px 500px;
+  display: flex;
+  justify-content: center;
+
+}
+.content .b1>div{
+  flex: 0 0 calc(100%/4);
+  box-sizing: border-box;
+  padding: 100px;
+}
+
+.content .b1 h2,.content .b1 h3,.content .b1 .pp{
+  margin-bottom: 50px;
+}
+
+.content .b1 h3{
+
+}
+
+
+.content .b1 .b11{
+  background-color: rgb(255, 102, 0);
+
+}
+.content .b1 .b12{
+  background-color: red;
+
+}
+.content .b1 .b13{
+  background-color: rgb(48, 48, 48);
+
+}
+.content .b1 .b14{
+  background-color: gray;
+
+}
+/* ----------------- */
+.content .b2{
+  background-color: rgb(233, 233, 233);
+}
+
+.content .b2{
+  padding: 100px 600px;
+  text-align: center;
+  margin: auto;
+}
+
+.content .b2 h2{
+color: rgb(255, 102, 0);
+margin-bottom: 50px;
+}
+
+.content .b3{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 100px 500px;
+}
+
+.content .b3 > div{
+  flex: 0 0 calc(100%/3);
+  min-width: 1450px;
+  box-sizing: border-box;
+  align-content: center;
+}
+
+.content .b3 .b31 img,
+.content .b3 .b33 img,
+.content .b3 .b35 img{ 
+  width: 100%;
+  display: block;
+}
+
+
+.content .b3 .b32 img,
+.content .b3 .b34 img,
+.content .b3 .b36 img{
+  mix-blend-mode: multiply;
+  width: 300px;
+}
+.content .b3 .b32,
+.content .b3 .b34,
+.content .b3 .b36{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+.content .b3 .b32 >*,
+.content .b3 .b34 >*,
+.content .b3 .b36 >*{
+  margin-bottom: 100px;
+}
+
+
+
+.content .b3 .b31{}
+
+.content .b3 .b32{
+  background-color: rgb(216, 216, 216);
+}
+
+.content .b3 .b33{}
+
+.content .b3 .b34,.content .b3 .b36{
+  background-color: rgb(241, 241, 241);
+}
+.content .b3 .b35{}
+
+.content .b3 h6{
+  display:inline-block;
+  padding-bottom: 10px;
+  border-bottom: solid 5px;
+
+}
+
+.content .b4{
+  background-image: url(./images/handbg.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding-top: 1000px;
+  text-align: center;
+}
+
+.content .b4 p{
+  font-style: italic;
+}
+
+
+.content .b4 .b4t1{
+  color: rgb(71, 71, 71);
+
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  
+}
+
+.content .b4 .b4t1 > div{
+  display: block;
+  border: gray solid 1px;
+  flex: 0 0 1300px;
+  height: 1200px;
+  vertical-align: middle;
+  text-align: center;
+  background-color: white;
+  margin: 50px;
+  padding: 50px;
+  box-sizing: border-box;
+
+}
+
+.content .b4 .b4t1 > div img{
+  width: 250px;
+  text-align: center;
+}
+
+.content .b4 .b4t1 h3{
+  margin-bottom: 50px;
+}
+
+.content .b4 {
+  
+}
+
+.content .b4 a{
+  text-decoration: none;
+  color: cornflowerblue;
+}
+
+.footer{
+  background-color: rgb(46, 46, 46);
+  margin-top: 100px;
+  padding: 150px 1500px 100px;
+  color: white;
+  text-align: center;
+  vertical-align: center;
+}
+
+.footer h3{
+  margin-bottom: 50px;
+  font-weight: normal;
+}
+
+
+.footer a{
+  color: cornflowerblue;
+  font-weight: normal;
+}
