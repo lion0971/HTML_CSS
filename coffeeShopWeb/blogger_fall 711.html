@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&family=Roboto:ital,wght@0,100..900;1,100..900&family=Skranji:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+   
+    html, body {
+      overflow-x: hidden; /* 重要！ */
+    }
+
+    /* === 最外層：確保相對定位 === */
+    .header1 {
+      position: relative;
+      overflow: hidden;  /* 防止 slider 跑出去 */
+    }
+
+    /* === 前景內容 === */
+    .header1 .header-content {
+      position: relative; /* 確保在 slider 上面 */
+      z-index: 100;
+      display: inline-block;
+      padding: 2rem;
+      margin: 0 5%;
+      color: #fff; /* 視背景而定 */
+      background-color: rgba(0, 0, 0, 0.90);
+    }
+
+    /* === 背景 Slider 區塊 === */
+    .header1 .wrap-slider {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 90; /* 在 header-content 下方 */
+      overflow: hidden;
+    }
+
+    /* === Carousel 基本設定 === */
+    .header1 .carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .header1 .slides {
+      display: flex;         /* 水平排列 */
+      width: 300%;           /* 假設有 3 張 */
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+
+    .header1 .slide {
+      flex: 0 0 100%;        /* 每張佔滿 100% */
+      height: 100%;
+    }
+
+    .header1 .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;     /* 滿版填滿，不變形 */
+      display: block;
+    }
+
+    /* === 左右切換按鈕範例 === */
+    .header1 .prev,
+    .header1 .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .header1 .prev { left: 1rem; }
+    .header1 .next { right: 1rem; }
+
+
+  
+
+    .leaf{
+      width: 15vw;  
+    }
+    .normal-leaf {
+      position: absolute;
+      transform-origin: right center;
+      pointer-events: none;
+    }
+
+    .special-leaf {
+    position: fixed;
+    top: -2%;
+    right: -7%;
+    transform-origin: center center;
+    pointer-events: none;  /* 特殊葉子固定在視窗上才能位移 */
+    }
+
+    </style>
+
+  </head>
+
+  <body> 
+
+    <header>
+      <!-- 海浪，放在 body 裡，建議放在你海面圖片的上方或下方 -->
+      <div class="wave-container">
+          <svg class="wave" viewBox="0 0 2400 120" preserveAspectRatio="none">
+              <path d="M0,30 C300,90 900,-30 1200,30 C1500,90 2100,-30 2400,30 L2400,120 L0,120 Z" />
+          </svg>
+      </div>
+      <div class="nav">
+            <h1><img src="./images/logo.png" width="75%" alt=""></h1>
+            <ul>
+                <li><a href="">關於我們</a></li>
+                <li><a href="">最新消息</a></li>
+                <li><a href="">線上訂購</a></li>
+
+            </ul>
+      </div>
+      <img class="coffee-floating" src="./images/coffee_sh.png" alt="Coffee Bean">
+    </header>
+    
+    <main>
+      <div class="header1">
+        <div class="header-content">
+          <h1>Better Beans, Better Days?</h1>
+          <h4>小批烘焙，典藏珍貴風味。此刻，咖啡靜好相伴。</h4>
+          <input type="text" placeholder="Enter a valid email address">
+          <p>
+              SUBMIT
+          </p>
+        </div>
+        
+      <div class="wrap-slider">
+        <div class="carousel">
+          <div class="slides">
+            <div class="slide"><img src="./images/cup1.png" alt="Slide 1"></div>
+            <div class="slide"><img src="./images/cup2.png" alt="Slide 2"></div>
+            <div class="slide"><img src="./images/cup3.png" alt="Slide 3"></div>
+          </div>
+          <button class="prev">❮</button>
+          <button class="next">❯</button>
+        </div>
+      </div>
+
+        
+
+      </div>
+      <div class="leaf-container">
+        <img src="./images/truLEA.png" class="leaf normal-leaf" style="top: -8%; right: 1%;" />
+        <img src="./images/truLEA.png" class="leaf normal-leaf" style="top: -5%; right: -1%;" />
+        <img src="./images/truLEA.png" class="leaf special-leaf" />
+        <img src="./images/truLEA.png" class="leaf normal-leaf" style="top: 3%; right: -2%;" />
+        <img src="./images/truLEA.png" class="leaf normal-leaf" style="top: -15%; right:-2%;" />
+      </div>
+      
+
+      <div class="content">
+        <div class="pb1"></div>
+        <div class="b1">
+            
+                <a class="b11" href="#">
+                  <h2>輕焙</h2>
+                <h3>明亮輕盈</h3>
+                <p class="pp">果酸如晨光般清新。</p>
+                <p><img src="./images/arrow.png" alt=""></p>
+                </a>
+                
+            
+            <div class="b12">
+                <h2>輕中焙</h2>
+                <h3>溫潤平衡</h3>
+                <p class="pp">微甜在舌尖悄悄綻放。</p>
+                <p><img src="./images/arrow.png" alt=""></p>
+            </div>
+            <div class="b13">
+                <h2>中焙</h2>
+                <h3>醇厚圓潤</h3>
+                <p class="pp">焦糖香繞在唇齒之間。</p>
+                <p><img src="./images/arrow.png" alt=""></p>
+            </div>
+            <div class="b14">
+                <h2>中重焙</h2>
+                <h3>深邃濃郁</h3>
+                <p class="pp">藏著可可的低語與厚實。</p>
+                <p><img src="./images/arrow.png" alt=""></p>
+            </div>
+        </div>
+        <div class="b2">
+          <div class="b21">
+            <h2>Freshly Roasted</h2>
+            <p class="pp">Carefully roasted, bursting with rich and pure aroma, making every sip unforgettable.</p>
+          </div>
+          <img class="b22" src="./images/cup2.png" alt="">
+          <div class="b23">
+            <h2>Cozy Space</h2>
+            <p class="pp">In a warm and cozy setting, relax and enjoy your own special moments.</p>
+          </div>
+          <img class="reveal-image" src="./images/splashl.png" alt="">
+   
+        </div>
+
+        <!-- <div class="block">這是要淡入的區塊</div> -->
+
+        <div class="b26">
+          <h2>Our Moments</h2>
+          <div>
+            
+          </div>
+          <h3 class="pp">Discover warmth and calm, where light and flavor meet to brighten your day.</h3>
+        </div>
+        <div>
+          <div class="b225">
+          <img class="b25" src="./images/cup3.png" alt="">
+          <div class="b25t">
+            <h2 class="b24">Our Coffee</h2>
+            <h4>在我們的慢光裡，<br>
+              每一束晨光都剛剛好，<br>
+              每一杯咖啡都不匆忙，<br>
+              我們相信，<br>
+              繁忙的縫隙裡，總該有片刻溫暖，<br>
+              留給你，留給自己。</h4>
+          </div> 
+        </div>
+        </div>
+        
+
+      </div>
+    
+
+      
+    <div class="tree-container">
+      <img class="treeimage" src="./images/tree.png" alt="">
+    </div>
+
+       <!-- 回到頂端按鈕 -->
+    <button id="backToTop" title="回到頂端" aria-label="回到頂端">
+      <span class="material-icons">arrow_upward</span>
+    </button>
+    
+    <footer>
+      
+      <div class="footer-content">
+        <p>© 2023 Slow Light Coffee<br>Better Beans, Better Days. All rights reserved.</p>
+        <p>Contact us</p>
+      </div>
+    </footer>
+    </main>
+    
+    
+  </body>
+  <script src="./script.js"></script>
+
+</html>
+

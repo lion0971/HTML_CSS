@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&family=Roboto:ital,wght@0,100..900;1,100..900&family=Skranji:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+    body{
+      height: 3000px; /* 確保有足夠的滾動距離 */
+    }
+
+    html, body {
+    overflow-x: hidden; /* 重要！ */
+    }
+
+    leaf-container{
+      position: relative;
+    }
+
+    .leaf{
+      width: 15vw;  
+    }
+    .normal-leaf {
+      position: absolute;
+      transform-origin: right center;
+      pointer-events: none;
+    }
+
+    .special-leaf {
+    position: fixed;
+    top: -2%;
+    right: -7%;
+    transform-origin: center center;
+    pointer-events: none;  /* 特殊葉子固定在視窗上才能位移 */
+    }
+
+    </style>
+
+  </head>
+
+  <body>
+    <div class="nav">
+          <h1><img src="./images/Logo.png" alt=""></h1>
+          <ul>
+              <li><a href="">About</a></li>
+              <li><a href="">News</a></li>
+              <li><a href="">Story</a></li>
+              <li><a href="">Online</a></li>
+              <li><a href="">Services</a></li>
+              <li><a href="">Contact</a></li>
+          </ul>
+    </div>
+<!-- 放在 body 裡，建議放在你海面圖片的上方或下方 -->
+    <div class="wave-container">
+        <svg class="wave" viewBox="0 0 2400 120" preserveAspectRatio="none">
+            <path d="M0,30 C300,90 900,-30 1200,30 C1500,90 2100,-30 2400,30 L2400,120 L0,120 Z" />
+        </svg>
+    </div>
+    <div class="leaf-container">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf normal-leaf" style="top: -8%; right: 1%;" />
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf normal-leaf" style="top: -5%; right: -1%;" />
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf special-leaf" />
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf normal-leaf" style="top: -5%; right: -2%;" />
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf normal-leaf" style="top: -15%; right:-3%;" />
+    </div>
+    <div class="header">
+                  
+
+                <h1>Building a Future?</h1>
+                <h4>You'll get to personalize the details of your house when you're building a house from the ground up - from the layout</h4>
+                <input type="text" placeholder="Enter a valid email address">
+                <p>
+                    SUBMIT
+                </p>
+                <img class="coffee-floating" src="./images/coffee.png" alt="Coffee Cup">
+      </div>
+      <script src="./script.js"></script>
+      <script>
+        window.addEventListener('load', function() {
+          const normalLeaves = document.querySelectorAll('.normal-leaf');
+          const specialLeaf = document.querySelector('.special-leaf');
+
+          // 正常葉子搖曳參數
+          const normalSettings = Array.from(normalLeaves).map(() => ({
+            baseAngle: Math.random() * 40 - 60,
+            swingSpeed: Math.random() * 0.01 + 0.01,
+            swingRange: Math.random() * 10 + 5
+          }));
+
+          // 特殊落葉搖曳參數
+          const specialSetting = {
+            baseAngle: Math.random() * 40 - 60,
+            swingSpeed: Math.random() * 0.01 + 0.01,
+            swingRange: Math.random() * 10 + 5
+          };
+
+          function animateLeaves() {
+            const t = performance.now() * 0.002;
+            const scrollY = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollRatio = docHeight > 0 ? scrollY / docHeight : 0;
+
+            // 🎐 正常葉子：固定搖曳，不跟著滾動位移
+            normalLeaves.forEach((leaf, i) => {
+              const { baseAngle, swingSpeed, swingRange } = normalSettings[i];
+              const swing = Math.sin(t * swingSpeed * 100) * swingRange;
+
+              leaf.style.transform = `
+                rotate(${baseAngle + swing}deg)
+              `;
+            });
+
+            // 🍃 特殊落葉：搖曳 + 上下位移 + 左右漂移 + 傾斜 + 縮放
+            const { baseAngle, swingSpeed, swingRange } = specialSetting;
+            const specialSwing = Math.sin(t * swingSpeed * 100) * swingRange;
+
+            let translateX, translateY, rotate, scale;
+
+            if (scrollRatio < 0.5) {
+              // 上半段：慢慢往左
+              translateX = -scrollRatio * 200; // 最多左飄 -100vw
+              translateY = scrollRatio * window.innerHeight * 0.8;
+              rotate = specialSwing + scrollRatio * 30; // 最多左飄 -30vw
+              scale = 1 - scrollRatio * 0.2;
+            } else {
+              // 下半段：往右滑回來
+              translateX = (scrollRatio - 0.5) * 200 - 120; // 從 -15vw ➜ +5vw
+              translateY = scrollRatio * window.innerHeight * 0.8;
+              rotate = specialSwing + 30 + (scrollRatio - 0.5) * 30;
+              scale = 0.9 + (scrollRatio - 0.5) * 0.1;
+            }
+
+            specialLeaf.style.transform = `
+              translateX(${translateX}vw)
+              translateY(${translateY}px)
+              rotate(${baseAngle + rotate}deg)
+              scale(${scale})
+            `;
+
+            requestAnimationFrame(animateLeaves);
+          }
+
+          animateLeaves();
+        });
+      </script>
+  </body>
+</html>
+

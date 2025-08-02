@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="bgblock4" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
+
+</body>
+</html>
+
+<script>
+  //宣告canvas
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  //畫布設定
+  let WIDTH = window.innerWidth,HEIGHT = window.innerHeight;
+  let COUNT = Math.floor(WIDTH * HEIGHT * 0.0001);
+  //常數
+  const PADDING = 10;
+  const PRECISION = 10;
+  const SIZE = 2;
+  const COLOR = '#fff';
+  //漸層背景
+  const gradient = ctx.createLinearGradient(0, 0, WIDTH, HEIGHT);
+  gradient.addColorStop(0, '#CCE2F1');
+  gradient.addColorStop(1, '#CCE2F1');
+  const BGCOLOR = gradient;
+  //需要重新賦值的全域變數 
+  const WRAPPER = document.getElementById('bgblock4');
+  //var WRAPPER = document.getElementsByClassName('block4');
+  let NEXTFRAME;
+  let SNAKES;
+  //var NEXTFRAME = void 0,SNAKES = void 0;
+  
+  function init() {
+    cancelAnimationFrame(NEXTFRAME);
+    
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+    
+    SNAKES = new Array(COUNT).fill().map(function () {
+    let length = Math.random() * 40 + 40;// 蛇的長度，介於40～80之間
+    return {
+    x: Math.random() * WIDTH,/// 蛇的起始水平位置，0～畫面寬度內
+    y: Math.random() * (HEIGHT - 2 * PADDING) + PADDING,// 垂直位置，避開上下padding區域
+    length: length,// 蛇的長度
+    period: length,// 週期，這邊跟長度同值，可能是振盪週期
+    amplitude: length * 0.5, // 振幅，振動幅度是長度一半
+    speed: Math.random() * 1 + 1 };// 移動速度，1～2之間隨機
+  
+  });
+  
+  WRAPPER.innerHTML = '';
+  WRAPPER.appendChild(canvas);
+  
+  ctx.lineCap = 'round';//設定線段的端點樣式為 圓頭
+  ctx.lineWidth = SIZE; // 線寬 5px
+  ctx.strokeStyle = COLOR;
+  
+  draw();
+  }
+  
+  function draw() {
+    // 畫一層半透明的背景，製造拖尾效果
+    ctx.globalAlpha = 0.1;
+    ctx.fillStyle = BGCOLOR;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    ctx.globalAlpha = 1;
+    
+    //var snake = void 0;
+    
+    // 依序更新每條蛇
+    for (var i = 0; i < COUNT; i++) {let snake=SNAKES[i];
+
+      // 水平前進
+      snake.x +=snake.speed;
+
+      // 超出邊界，從左邊重來
+      if (snake.x> WIDTH) {
+
+      
+        snake.x = -snake.length;
+        }
+    
+      // 畫蛇波浪路徑
+      ctx.beginPath();
+      ctx.moveTo(snake.x, snake.y + Math.sin(snake.x / snake.period) * snake.amplitude);
+      
+      for (let dx = 0, dy; dx < snake.length; dx +=PRECISION) { dy=Math.sin((dx + snake.x) / snake.period) *
+          snake.amplitude; ctx.lineTo(snake.x + dx, snake.y + dy); } ctx.stroke();
+    }
+
+    // 下一幀
+    NEXTFRAME=requestAnimationFrame(draw);
+  }
+  
+  // 當視窗大小改變時，重新初始化
+  window.onresize=init;
+  
+  // 第一次啟動
+  init();
+  
+</script>

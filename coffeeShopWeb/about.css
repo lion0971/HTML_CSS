@@ -1,0 +1,164 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background-image: url("./images/e4.jpeg");
+  background-size: cover;
+   
+}
+
+.wave-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 0;
+}
+
+.wave {
+  display: block;
+  width: 200%;      /* 兩倍寬，兩段波浪首尾無縫 */
+  height:80vh;
+}
+
+.wave path {
+  fill: rgba(124, 61, 1, 0.1);
+  animation: moveWave 10s linear infinite;
+}
+
+
+@keyframes moveWave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+
+.nav-logo{
+  width:20%;
+  mix-blend-mode: multiply; /* 混合模式，常見在 PNG 上做色彩融入 */
+}
+
+.nav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1; /* 確保導航在波浪之上 */
+}
+
+.nav-logo{
+  width: 5%;
+  mix-blend-mode: multiply; /* 混合模式，常見在 PNG 上做色彩融入 */
+  margin: 2%;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+
+  margin: 0 1rem;
+}
+
+.nav-list a {
+  display: block;
+  margin: 0 5em;
+  text-decoration: none;
+  padding: 1em 2em;
+  font-size: 1.2rem;
+  color: #333;
+
+  background: transparent; /* 按鈕背景透明 */
+  border: 2px solid rgba(0, 0, 0, 0.2); /* 半透明邊框 */
+  border-radius: 12px;
+
+  /* 外陰影 (box-shadow) */
+  box-shadow: 
+    4px 4px 10px rgba(0, 0, 0, 0.2),   /* 外陰影 */
+    inset 2px 2px 6px rgba(255, 255, 255, 0.3), /* 內陰影：高光 */
+    inset -2px -2px 6px rgba(0, 0, 0, 0.2);     /* 內陰影：暗部 */
+
+  backdrop-filter: blur(4px); /* 玻璃感，可有可無 */
+  -webkit-backdrop-filter: blur(4px);
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-list a:hover {
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.3),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+.container{
+  color: rgb(10, 10, 10);
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10% 15%;
+  border-radius: 10px;
+  width: 80%;
+  margin: 1% auto;
+  box-sizing: border-box;
+  line-height: 2.5;
+}
+
+.container h2{
+  color: rgb(10, 10, 10);
+  margin-bottom: 2rem;
+}
+
+.container h3{
+  color: rgb(10, 10, 10);
+  margin-bottom: 2rem;
+}
+
+.container p{
+  font-weight: 450;
+}
+
+.container .p1{
+  font-size: 1.2rem;
+  margin-top: 4.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.container .flo1{
+  float: right;
+  width:60%;
+  margin: 5% 0 5% 5%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.container .clear{
+  clear: both;
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    font-size: 24px;
+    display: none;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 12px 16px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+
+#backToTop:hover {
+    background-color: #555;
+}

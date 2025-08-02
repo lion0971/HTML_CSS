@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .coffee-svg {
+  position: fixed;      /* 讓它固定在視窗中間 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10vw;
+  max-width: 200px;
+}
+
+.coffee-bean {
+  fill: url(#coffeeImage);   /* 也可以直接用單色或圖案 */
+  fill: brown;               /* 先用咖啡色示範 */
+  cursor
+
+  </style>
+</head>
+<body>
+  <!-- SVG 包含路徑，路徑可以是真正的咖啡豆形狀 -->
+<svg class="coffee-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 這裡示範用橢圓形代替咖啡豆形狀 -->
+  <path 
+    class="coffee-bean"
+    d="M100,10 
+       C140,10 180,60 180,100 
+       C180,140 140,190 100,190 
+       C60,190 20,140 20,100 
+       C20,60 60,10 100,10 Z"
+  />
+</svg>
+
+</body>
+</html>

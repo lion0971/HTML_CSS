@@ -1,0 +1,48 @@
+<div class="leaf-container">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf" style="top: 30%; right: 4%;" />
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf" style="top: 35%; right: 6%;" />
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilcUzWf4shIjFyZJBN1tDgRI00EIBCH1S6dJx3bH7VKD-2Q9QSKgkLB7fDnu1szcFrqi488T_yFvmI_iWNVACzI3YQquffboFPOJb9K8owaTdYrTKusSuXxXbsCN3XBf_N32Lw5AOYurAgEsCgBjRq__njyFWZRkUKCSflbBJ4mr0ZB3OOQ07h5USdfeo/s320/leaf.png" class="leaf" style="top: 25%; right: 7%;" />
+</div>
+
+<style>
+  .leaf {
+    position: fixed;
+    top: 30%;
+    right: 0%;
+    width: 80px;
+    transform-origin: right center;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  window.addEventListener('load', function() {
+    const leaves = document.querySelectorAll('.leaf');
+
+    const settings = Array.from(leaves).map(() => ({
+      baseAngle: Math.random() * 40 - 60,
+      swingSpeed: Math.random() * 0.01 + 0.02,
+      swingRange: Math.random() * 10 + 5
+    }));
+
+    function animateLeaves() {
+      const scrollY = window.scrollY;
+
+      leaves.forEach((leaf, i) => {
+        const { baseAngle, swingSpeed, swingRange } = settings[i];
+        const t = performance.now() * 0.002;
+        const swing = Math.sin(t * swingSpeed * 100) * swingRange;
+        const fall = scrollY * 0.5;
+
+        leaf.style.transform = `
+          translateY(${fall}px)
+          rotate(${baseAngle + swing}deg)
+        `;
+      });
+
+      requestAnimationFrame(animateLeaves);
+    }
+
+    animateLeaves();
+  });
+</script>

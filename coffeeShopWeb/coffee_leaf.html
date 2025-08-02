@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaf Wave Demo</title>
+  <style>
+    body {
+      height: 300vh; /* 有滾動距離，示範用 */
+      margin: 0;
+      background: #f0f8ff;
+    }
+
+    .leaf-container {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .leaf-container.left {
+      top: 0;
+      left: 0;
+      transform: scaleX(-1);
+    }
+
+    .leaf-container.right {
+      top: 0;
+      right: -2vw;
+    }
+
+    .leaf {
+      width: 10vw; /* 葉子大小可調整 */
+      transform-origin: right center;
+    }
+
+    .content {
+      margin: 0 auto;
+      max-width: 600px;
+      padding: 200px 20px;
+    }
+
+    .flip-horizontal {
+      transform: scaleX(-1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 左邊葉子 -->
+  <!-- 左邊 -->
+<div class="leaf-container left">
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+
+
+
+</div>
+
+
+
+
+  <!-- 右邊葉子 -->
+  <div class="leaf-container right">
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    <img class="leaf" src="./images/leaf.png" />
+    
+  </div>
+
+  <!-- 中央主要內容 -->
+  <div class="content">
+    <h1>Leaf Wave Demo</h1>
+    <p>向下滾動試試看葉子飄動的效果！</p>
+    <p>...</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const leaves = document.querySelectorAll('.leaf');
+
+      const settings = Array.from(leaves).map(() => ({
+        baseAngle: Math.random() * 20 - 10, // -10° ~ +10°
+        swingSpeed: Math.random() * 0.005 + 0.005,
+        swingRange: Math.random() * 10 + 5,
+        offset: Math.random() * 100
+      }));
+
+      function animateLeaves() {
+        const scrollY = window.scrollY;
+
+        leaves.forEach((leaf, i) => {
+          const { baseAngle, swingSpeed, swingRange, offset } = settings[i];
+          const t = performance.now() * 0.002;
+          const swing = Math.sin((t + offset) * swingSpeed * 100) * swingRange;
+          const fall = scrollY * 0.2;
+
+          leaf.style.transform = `
+            translateY(${fall}px)
+            rotate(${baseAngle + swing}deg)
+          `;
+        });
+
+        requestAnimationFrame(animateLeaves);
+      }
+
+      animateLeaves();
+    });
+  </script>
+</body>
+</html>

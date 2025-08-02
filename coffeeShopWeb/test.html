@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scroll Reveal Test</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { height: 3000px; }
+
+    .reveal-image {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0;
+      transition: transform 1s ease, opacity 1s ease;
+      z-index: 10;
+    }
+
+    .reveal-image.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <img class="reveal-image" src="https://via.placeholder.com/300" alt="">
+
+  <script>
+    const img = document.querySelector('.reveal-image');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const scrollRatio = scrollY / docHeight;
+
+      console.log(scrollRatio.toFixed(3));
+
+      if (scrollRatio >= 0.357) {
+        img.classList.add('active');
+      } else {
+        img.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

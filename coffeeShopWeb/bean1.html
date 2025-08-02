@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .bean-svg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+  }
+
+  .bean-path {
+    fill: url(#coffeeImage);       /* 使用圖檔當背景 */
+    cursor: pointer;               /* 滑鼠進入 path 才變手指 */
+    transition: filter 0.2s ease;
+  }
+
+  .bean-path:hover {
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+  }
+  </style>
+</head>
+<body>
+  <svg class="bean-svg" viewBox="0 0 100 100">
+  <!-- 圖片當作背景填充 -->
+  <defs>
+    <pattern id="coffeeImage" patternUnits="objectBoundingBox" width="1" height="1">
+      <image href="./images/coffee_sh.png" width="100" height="100" />
+    </pattern>
+  </defs>
+
+  <!-- 咖啡豆形狀的 path（你可以替換成自己的） -->
+  <path class="bean-path" d="M50,10 C65,20 65,80 50,90 C35,80 35,20 50,10 Z" />
+</svg>
+
+<script>
+  document.querySelector(".bean-path").addEventListener("click", () => {
+    alert("你點到咖啡豆囉！");
+  });
+</script>
+</body>
+</html>

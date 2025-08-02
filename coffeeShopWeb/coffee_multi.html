@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaf Wave Multi Row Demo</title>
+  <style>
+    body {
+      height: 300vh; /* 有滾動距離可測試 */
+      margin: 0;
+      background: #f0f8ff;
+    }
+
+    .leaf-container {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .leaf-container.left {
+      top: -10vw;
+      left: -5vw;
+    }
+
+    .leaf-container.right {
+      top: -10vw;
+      right: -5vw;
+    }
+
+    /* 每排葉子往內縮一點，形成層次 */
+    .row1 {
+      transform: translateX(0) translateY(50px);
+
+    }
+
+    .row2 {
+      transform: translateX(40px) translateY(100px);
+
+    }
+
+    .row3 {
+      transform: translateX(20px) translateY(200px);
+      
+    }
+
+    .leaf-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    .flip-horizontal {
+      transform: scaleX(-1);
+    }
+
+    .leaf {
+      width: 20vw; /* 葉子大小可調整 */
+      transform-origin: right center;
+    }
+
+
+    .content {
+      margin: 0 auto;
+      max-width: 600px;
+      padding: 200px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 左邊多排葉子 -->
+
+  <div class="leaf-container left row1">
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+  </div>
+
+  <div class="leaf-container left row2">
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+  </div>
+
+  <div class="leaf-container left row3">
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+    <div class="leaf-wrapper flip-horizontal"><img class="leaf" src="./images/coffeelea.png"></div>
+  </div>
+
+  <!-- 右邊多排葉子 -->
+  <div class="leaf-container right row1">
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+  </div>
+
+  <div class="leaf-container right row2">
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+  </div>
+
+  <div class="leaf-container right row3">
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+    <div class="leaf-wrapper"><img class="leaf" src="./images/leaf.png"></div>
+  </div>
+  
+
+  <!-- 中央內容 -->
+  <div class="content">
+    <h1>Leaf Wave Multi Row</h1>
+    <p>滾動頁面，葉子隨風搖曳，像多層樹叢！</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const leaves = document.querySelectorAll('.leaf');
+
+      // 為每片葉子設定隨機參數
+      const settings = Array.from(leaves).map(leaf => {
+        const opacity = Math.random() * 0.5 + 0.5; // 0.5 ~ 1
+        const scale = Math.random() * 0.5 + 0.5;   // 0.5~ 1
+        leaf.style.opacity = opacity;
+        leaf.style.transform += ` scale(${scale})`;
+
+        return {
+          baseAngle: Math.random() * 20 - 10,
+          swingSpeed: Math.random() * 0.005 + 0.005,
+          swingRange: Math.random() * 10 + 5,
+          offset: Math.random() * 100
+        };
+      });
+
+      function animateLeaves() {
+        const scrollY = window.scrollY;
+
+        leaves.forEach((leaf, i) => {
+          const { baseAngle, swingSpeed, swingRange, offset } = settings[i];
+          const t = performance.now() * 0.002;
+          const swing = Math.sin((t + offset) * swingSpeed * 100) * swingRange;
+          const fall = scrollY * 0.2;
+
+          // 原有 scale 和 opacity 不變，只更新 rotate 和 translateY
+          leaf.style.transform = `
+            rotate(${baseAngle + swing}deg)
+            translateY(${fall}px)
+            scale(${leaf.style.transform.match(/scale\((.*?)\)/)?.[1] || 1})
+          `;
+        });
+
+        requestAnimationFrame(animateLeaves);
+      }
+
+      animateLeaves();
+    });
+  </script>
+</body>
+</html>

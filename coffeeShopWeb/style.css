@@ -1,0 +1,428 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(109, 43, 2); */
+  font-family: Arial, Helvetica, '微軟正黑', sans-serif;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  margin-right: 15%;
+}
+.nav h1{}
+
+.nav h1 img{}
+
+.nav ul{
+  display: flex;
+}
+.nav ul li{
+  list-style: none;
+  margin: 0 45px;
+ 
+}
+.nav ul li a{
+  text-decoration: none;
+
+}
+.nav ul li a:hover{}
+
+.header1{
+  color: rgb(31, 22, 22);
+  padding: 40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.header1 h1{
+  width:150px;
+  margin-bottom: 10px;
+  font-family: "Skranji", system-ui;
+  font-weight: 70;
+  font-style: normal;
+}
+.header1 h4{
+  width: 150px;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+
+.header1 input{
+  width: 80px;
+
+  font-size: 10px;
+  padding: 20px 7px;
+}
+
+.header1 p{
+  color:aliceblue;
+  display: inline-block;
+  font-size: 10px;
+  padding: 20px 7px;
+  background-color: rgb(57, 57, 57);
+}
+
+.coffee-floating {
+  position: fixed;           /* 讓咖啡固定在畫面中間 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10vw;               /* 你需要的寬度 */
+  overflow: hidden;
+  max-width: 200px;         /* 如果要限制最大寬度也 OK */
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+  transition: opacity 0.1s ease;
+  pointer-events: none;
+}
+
+
+.wrap-slider {
+  height: 30%;
+  overflow: hidden;
+  position: absolute;
+  z-index: -10; /* 確保在其他元素下方 */
+}
+
+.content{}
+
+/* .content a{
+  display: block;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 60;
+} */
+
+.content .b1{
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px 45px;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.content .b1>div{
+  flex: 0 0 calc(100%/4);
+  box-sizing: border-box;
+  padding: 1% 3%;
+  box-sizing: border-box;
+}
+
+.content .b1 h2,.content .b1 h3,.content .b1 .pp{
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.content .b1 h3{
+
+}
+
+
+.content .b1 .b11{
+  background-color: rgb(255, 102, 0);
+  flex: 0 0 calc(100%/4);
+  padding: 1% 3%;
+  box-sizing: border-box;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative; /* 必須要有 */
+  z-index: 60;
+
+}
+.content .b1 .b12{
+  background-color: red;
+  position: relative; /* 必須要有 */
+  z-index: 60;
+
+}
+.content .b1 .b13{
+  background-color: rgb(48, 48, 48);
+  position: relative; /* 必須要有 */
+  z-index: 60;
+
+}
+.content .b1 .b14{
+  background-color: gray;
+  position: relative; /* 必須要有 */
+  z-index: 60;
+
+}
+
+.content .b2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 3% 5%;
+  gap: 40px;   /* 👈 取代 margin */
+  box-sizing: border-box;
+}
+
+.content .b2 .b22,
+.content .b2 .b24,
+.content .b2 .b25 {
+  border-radius: 50% 1% 50%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.content .b2 .b21,
+.content .b2 .b22,
+.content .b2 .b23,
+.content .b2 .b24,
+.content .b2 .b25 {
+  width:calc((100% - 80px) / 3);
+  box-sizing: border-box;
+}
+
+.content .b26 {
+  display: flex;
+  justify-content: space-between; /* 左右對齊 */
+  align-items: center;            /* 垂直置中 */
+  color: aliceblue;
+  padding: 15%;
+  background-image: url("./images/cupleng.png");
+  background-size: cover;
+  background-position: center;    /* 保證圖居中 */
+  z-index: 50;
+}
+
+.content .b26 h2,
+.content .b26 h3 {
+  margin: 0; /* 移除預設外距 */
+}
+
+
+
+.reveal-image {
+  display: inline;
+  position: fixed;  /* 或 absolute 看你要定位在哪裡 */
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  transform: translate(-50%, -50%) scale(0.5); /* 從縮小狀態開始 */
+  opacity: 0; /* 從透明開始 */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* 動畫平滑 */
+  z-index: 1; /* 需要的話，確保在其他元素上面 */
+}
+
+.reveal-image.active {
+  transform: translate(-50%, -50%) scale(1); /* 放大到正常大小 */
+  opacity: 1; /* 完全可見 */
+}
+
+
+/* .block {
+  position: relative;
+  background-color: black;
+  width: 100%;
+  height: 20%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.block.show {
+  opacity: 1;
+} */
+
+
+.footer{
+  background-color: rgb(46, 46, 46);
+  margin-top: 10px;
+  padding: 15px 150px 10px;
+  color: white;
+  text-align: center;
+  vertical-align: center;
+}
+
+.footer h3{
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+
+.footer a{
+  color: cornflowerblue;
+  font-weight: normal;
+}
+
+/* leaf傾斜動畫 */
+  /* .leaf {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: transform 0.1s linear;
+    width: 100px;
+  } */
+
+/* leaf像鐘擺搖晃動畫*/
+/* .leaf {
+      position: fixed;
+      top: 20%;    一開始大約在畫面上方 
+      left: 50%;   水平置中 
+      transform: translate(-50%, -50%);
+      width: 100px;
+      pointer-events: none;
+} */
+
+.leaf {
+      position: fixed;
+      top: 30%;   /* 可依喜好調整起始位置 */
+      right: 0%;
+      width: 80px;
+      transform-origin: right center; /* 以葉柄為旋轉中心 */
+      pointer-events: none;
+      z-index: 20;
+    }
+
+/* 波浪動畫 */
+/* 放在 body 裡，建議放在你海面圖片的上方或*/
+.wave-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 0;
+}
+
+.wave {
+  display: block;
+  width: 200%;      /* 兩倍寬，兩段波浪首尾無縫 */
+  height:80vh;
+}
+
+.wave path {
+  fill: rgba(124, 61, 1, 0.1);
+  animation: moveWave 10s linear infinite;
+}
+
+@keyframes moveWave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.carousel{
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  min-width: 100%; /* 一張圖佔滿容器 */
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 🚩 保持比例，裁切多餘部分 */
+  display: block;
+  
+}
+
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.treeimage {
+
+  width: 100%;
+  height: 100%;
+
+}
+
+.content .b225{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  
+}
+
+.content .b225 img {
+  height: auto;
+  flex: 1 1 40%;
+  object-fit: contain; /* 可選，讓圖片完整顯示 */
+  min-width: 300px;
+  box-sizing: border-box;
+}
+
+.content .b225 .b25t {
+  flex: 1 1 60%;
+  display: flex;              /* 讓它成為 flex 容器 */
+  flex-direction: column;     /* 垂直排列子元素 */
+  justify-content: center;    /* 垂直置中子元素 */
+  align-items: center;        /* 水平置中子元素 */
+  box-sizing: border-box;
+  min-width: 450px;
+  padding: 5%;               /* 你原本有的 padding */
+  text-align: center;         /* 讓文字置中 */
+}
+
+.content .b225 .b25t h2 {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.content .b225 .b25t h4 {
+  font-weight: normal;
+  line-height: 1.5;
+  font-size: 1.2em;
+  color: rgb(109, 43, 2);
+}
+
+
+
+
+footer {
+  line-height: 2;
+  padding: 2%;
+  text-align: center;
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    font-size: 24px;
+    display: none;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 12px 16px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+
+#backToTop:hover {
+    background-color: #555;
+}
