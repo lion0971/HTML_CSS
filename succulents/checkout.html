@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>結帳頁</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <style>
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    .item img {
+      width: 100px;
+      margin-right: 10px;
+    }
+
+    .controls button {
+      width: 30px;
+      height: 30px;
+      margin: 0 5px;
+      border-radius: 5px;
+      border: none;
+      background-color: #6366f1;
+      color: white;
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      background-color: #4f46e5;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div style="position: relative;">
+
+      <h1 style="font-size: 2.25rem;font-weight: normal;">
+        <img class="logo" src="./images/index/logo.png">
+        <span>SuccuLeaf</span> 溯植綠
+      </h1>
+    </div>
+
+    <nav class="nav-desktop">
+      <a href="./brand.html">品牌故事</a>
+      <a href="./items.html">迷你展示</a>
+      <a href="./contact.html">聯絡我們</a>
+    </nav>
+  </header>
+  <main style="padding-top: 10rem;padding: 10rem">
+    <h1>購物車</h1>
+
+    <div id="cart"></div>
+
+    <button onclick="clearCart()">全部清除</button>
+
+    <div class="total" id="totalAmount"></div>
+
+    <script>
+      function renderCart() {
+        const cartDiv = document.getElementById('cart');
+        const totalDiv = document.getElementById('totalAmount');
+        cartDiv.innerHTML = '';
+        let total = 0;
+
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+        if (cart.length === 0) {
+          cartDiv.innerHTML = '<p>購物車是空的</p>';
+          totalDiv.innerHTML = '';
+          return;
+        }
+
+        cart.forEach(item => {
+          const subtotal = item.price * item.qty;
+          total += subtotal;
+
+          const div = document.createElement('div');
+          div.className = 'item';
+
+          div.innerHTML = `
+        <img src="${item.img}">
+        <div>
+          <div><strong>商品名稱：</strong>${item.name}</div>
+          <div><strong>單價：</strong>${item.price.toLocaleString()}</div>
+          <div class="controls">
+            <button onclick="changeQty('${item.id}', -1)">-</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty('${item.id}', 1)">+</button>
+            <span>小計：${subtotal.toLocaleString()}</span>
+          </div>
+        </div>
+      `;
+
+          cartDiv.appendChild(div);
+        });
+
+        totalDiv.innerHTML = `總金額：${total.toLocaleString()}`;
+      }
+
+      function changeQty(id, delta) {
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+        const item = cart.find(p => p.id === id);
+        if (!item) return;
+
+        item.qty += delta;
+
+        if (item.qty <= 0) {
+          cart = cart.filter(p => p.id !== id);
+        }
+
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+
+      function clearCart() {
+        if (!confirm('確定要清空購物車嗎？')) return;
+        sessionStorage.removeItem('cart');
+        renderCart();
+      }
+
+      // 初次載入
+      renderCart();
+    </script>
+
+</body>
+
+</html>

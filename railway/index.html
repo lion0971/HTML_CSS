@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鐵路行旅</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      overflow: hidden;
+      background: linear-gradient(to top, #bcdcff 0%, #ffffff 70%);
+      position: relative;
+      height: 100vh;
+    }
+
+    /* ========== 首頁區 ========== */
+    header {
+      width: 100vw;
+      height: 100vh;
+      background-image: url('./images/back3-1.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      transition: opacity 1s ease;
+    }
+
+    header.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ---------- NAV 容器：古早風 + 淡墨暈染 ---------- */
+    header .nav1 {
+      width: 100%;
+      padding: 0px 30px;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ---------- NAV 下方墨刷痕 ---------- */
+
+    header .nav1::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 200px;
+      /*控制白邊寬窄*/
+      background-image: url('./images/paperside2.png');
+      background-repeat: repeat-x;
+      background-size: 100% 100%;
+      /* ✅ 完全填滿元素寬高 */
+
+      opacity: 1;
+    }
+
+    header .nav1 img {
+      /* 水墨底線 */
+      height: 13vh;
+      filter: grayscale(90%) contrast(120%);
+      opacity: 0.9;
+      z-index: 10;
+      margin: 20px;
+    }
+
+    header .nav1 ul {
+      list-style: none;
+      display: flex;
+      /* li 會水平排列 */
+      gap: 45px;
+      z-index: 1;
+      justify-content: center;
+      /* 水平置中 */
+    }
+
+    /* ---------- 桌機版選單：宋體 ---------- */
+    /* li 只需文字置中 */
+    header .nav1 ul li {
+      list-style: none;
+      text-align: center;
+
+      height: 60px;
+      width: 11vw;
+
+      /* 水墨底線 */
+      background-image: url('./images/ink-stroke2.png');
+      background-repeat: repeat-x;
+      /* 切為 flex 以達到垂直 + 水平置中 */
+      display: flex;
+      justify-content: center;
+      /* 水平置中 */
+      align-items: center;
+      /* 垂直置中 */
+
+      /* UI 調和 */
+      border-radius: 8px;
+    }
+
+    header .nav1 ul li a {
+      text-align: center;
+      text-decoration: none;
+      color: #2d1f11;
+      /* 深茶褐，台味 */
+      font-size: 20px;
+      letter-spacing: 1px;
+      font-family: "Noto Serif TC", serif;
+      font-weight: 600;
+      transition: 0.25s ease;
+
+
+    }
+
+    header .nav1 ul li:nth-child(1) {
+      animation-duration: 4.5s;
+      animation-delay: 0.2s;
+    }
+
+    header .nav1 ul li:nth-child(2) {
+      animation-duration: 5.2s;
+      animation-delay: 0.8s;
+    }
+
+    header .nav1 ul li:nth-child(3) {
+      animation-duration: 4.8s;
+      animation-delay: 0.5s;
+    }
+
+    header .nav1 ul li:nth-child(4) {
+      animation-duration: 5.6s;
+      animation-delay: 1s;
+    }
+
+
+    /* Hover 墨色擴散 */
+    header .nav1 ul li a:hover {
+      color: #7a4e24;
+      text-shadow: 0 0 6px rgba(80, 50, 20, 0.4);
+      background-size: 100% 6px;
+      /* 變粗 */
+      transition: background-size 0.25s ease;
+    }
+
+
+    .headertree {
+      position: absolute;
+      height: 30vh;
+      z-index: 10;
+      top: 81vh;
+      overflow: hidden;
+    }
+
+    .headertree img {
+      width: 100%;
+
+    }
+
+
+    .train {
+      position: absolute;
+      bottom: 7vh;
+      width: 100vw;
+      height: auto;
+      pointer-events: none;
+    }
+
+    @keyframes cloudFloat {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+
+
+
+    @keyframes moveRight {
+      from {
+        transform: translateX(-150vw);
+      }
+
+      to {
+        transform: translateX(200vw);
+      }
+    }
+
+    @keyframes moveLeft {
+      from {
+        transform: translateX(0) scaleX(-1);
+      }
+
+      to {
+        transform: translateX(calc(-110vw - var(--train-width))) scaleX(-1);
+      }
+    }
+
+
+    .box {
+      background-color: rgba(255, 255, 255, 0.858);
+      width: 75vw;
+      height: 100vh;
+      margin: 15px;
+      padding: 15px;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.3);
+      color: #270066;
+      border-radius: 10px;
+      border: 4px solid;
+      border-image: linear-gradient(to right, rgba(0, 51, 102, 0.8), rgba(255, 255, 255, 0)) 1;
+      padding: 12px 30px;
+      font-size: 18px;
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /*輪播廣告*/
+    /* 外層固定 1920 × 600 */
+    .slider {
+      width: 100%;
+      max-width: 1920px;
+      height: 600px;
+      margin: 0 auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    /* 全部圖片重疊 */
+    .slider .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      opacity: 0;
+      filter: blur(8px) contrast(1.3) brightness(0.8);
+      transition: opacity 1.4s ease, filter 1.4s ease;
+    }
+
+    .slider .slide.active {
+      opacity: 1;
+      filter: blur(0) contrast(1) brightness(1);
+    }
+
+
+    /* 左右按鈕 */
+    .slider button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px 16px;
+      border: none;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .slider button:hover {
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+
+
+
+    /*手機*/
+    /* 漢堡按鈕預設隱藏 */
+    .hamburger {
+      display: none;
+    }
+
+    /* 下拉選單預設隱藏 */
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 200px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .dropdown-menu button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 14px 20px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .dropdown-menu button:hover {
+      background: rgba(255, 140, 0, 0.85);
+      color: #fff;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      header .nav1 img {
+        height: 12vh;
+
+      }
+
+      .train {
+        top: 79vh;
+      }
+
+      .boxMenu {
+        display: none;
+        /* 隱藏原本左側按鈕 */
+      }
+
+      header .nav1 ul {
+        display: none;
+      }
+
+      /*輪播廣告*/
+      .slider {
+        height: 500px;
+      }
+
+
+      .hamburger {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        color: #3e2a17;
+        width: 48px;
+        height: 48px;
+        user-select: none;
+        cursor: pointer;
+        animation: cloudFloat 4s ease-in-out infinite;
+        background: rgba(255, 255, 255, 0.1);
+        /* 微透亮底，增加質感 */
+        border-radius: 8px;
+        /* 圓角更柔和 */
+        /* 白色光暈 */
+        box-shadow:
+          0 0 6px rgba(255, 255, 255, 1),
+          0 0 12px rgba(255, 255, 255, 0.5),
+          0 0 25px rgba(255, 255, 255, 0.3);
+        z-index: 10;
+        line-height: 1;
+        padding-bottom: 3px;
+        /* 讓它視覺置中 */
+        margin: 10vw;
+      }
+
+
+      .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 20px;
+        background: rgba(40, 25, 10, 0.85);
+        backdrop-filter: blur(3px);
+        border-radius: 8px;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-15px);
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-menu.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .dropdown-menu button {
+        background: none;
+        border: none;
+        padding: 14px 20px;
+        color: #fff8ec;
+        font-size: 18px;
+        font-family: "Noto Sans TC", sans-serif;
+        /* 手機無襯線 */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .dropdown-menu button:hover {
+        background: rgba(250, 180, 100, 0.8);
+        /* 古早橘 */
+        color: #402816;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ====== 首頁區 ====== -->
+  <header id="home">
+    <nav class="nav1">
+      <img src="./images/logo.png" alt="">
+      <ul class="ul1">
+        <li><a href="./index1104.html">首頁</a></li>
+        <li><a href="./stationBox.html">精選便當</a></li>
+        <li><a href="./coBrandingBox.html">最新消息</a></li>
+        <li><a href="./video.html">連絡我們</a></li>
+      </ul>
+      <!-- 漢堡按鈕 -->
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+    <div class="slider fade-ink">
+      <img src="./images/back1.png" class="slide active">
+      <img src="./images/back3.png" class="slide">
+      <img src="./images/back2-1.png" class="slide">
+      <img src="./images/scen1.png" class="slide">
+      <img src="./images/back3-1.png" class="slide">
+
+      <button class="prev">❮</button>
+      <button class="next">❯</button>
+    </div>
+
+    <div class="headertree">
+      <img src="./images/scenery-2-2.png" alt="">
+    </div>
+
+
+
+    <!-- 下拉選單 -->
+    <div class="dropdown-menu">
+      <button onclick="location.href='./index.html'">首頁</button>
+      <button onclick="location.href='./stationBox.html'">精選便當</button>
+      <button onclick="location.href='./coBrandingBox.html'">最新消息</button>
+      <button onclick="location.href='./video.html'">連絡我們</button>
+    </div>
+
+
+  </header>
+
+
+  <script>
+    /* 🔹 首頁火車動畫 */
+    const trainImages = [
+      "./images/orange_car1.png",
+      "./images/blue_car1.png"
+    ];
+
+    function spawnTrain() {
+      const train = document.createElement("img");
+      const imgSrc = trainImages[Math.floor(Math.random() * trainImages.length)];
+      train.src = imgSrc;
+      train.classList.add("train");
+
+      // 🔸 固定方向隨機（左右）
+      const direction = Math.random() > 0.5 ? "right" : "left";
+
+      // 🔸 固定速度，但依顏色不同調整
+
+      let duration;
+      if (imgSrc.includes("orange_car1")) {
+        duration = (5 + Math.random() * 1.5).toFixed(1) + "s"; // 3.0–4.5秒
+      } else {
+        duration = (8 + Math.random() * 2).toFixed(1) + "s"; // 6.0–8.0秒
+      }
+
+      document.body.appendChild(train);
+      const trainWidth = train.offsetWidth;
+      train.style.setProperty("--train-width", `${trainWidth}px`);
+
+      if (direction === "right") {
+        train.style.left = "-250px";
+        train.style.animation = `moveRight ${duration} linear forwards`;
+      } else {
+        train.style.left = "100vw";
+        train.style.animation = `moveLeft ${duration} linear forwards`;
+      }
+
+      // 🔸 動畫結束後重生
+      train.addEventListener("animationend", () => {
+        train.remove();
+        spawnTrain();
+      });
+    }
+
+    window.addEventListener("load", () => {
+      setTimeout(spawnTrain, 300); // 延遲 0.3 秒出現第一台火車
+    });
+
+    /*輪播廣告*/
+    let index = 0;
+    const slides = document.querySelectorAll(".slider .slide");
+    const total = slides.length;
+
+    function showSlide(i) {
+      slides[index].classList.remove("active");
+      index = (i + total) % total;
+      slides[index].classList.add("active");
+    }
+
+    // 自動播放
+    setInterval(() => showSlide(index + 1), 4000);
+
+    // 左右切換
+    document.querySelector(".prev").onclick = () => showSlide(index - 1);
+    document.querySelector(".next").onclick = () => showSlide(index + 1);
+
+
+    /*-----------------------------
+      手機版選單 toggle
+    -----------------------------*/
+    function toggleMenu() {
+      const menu = document.querySelector(".dropdown-menu");
+      menu.classList.toggle("show");
+    }
+
+    // 手機版按鈕也能顯示內容
+    const dropdownButtons = document.querySelectorAll(".dropdown-menu button");
+    dropdownButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const bentoId = btn.dataset.bento;
+        const wrapper = document.getElementById(bentoId);
+        showBento(wrapper);
+      });
+    });
+
+    // 點外部關閉選單
+    document.addEventListener("click", function (event) {
+      const menu = document.querySelector(".dropdown-menu");
+      const hamburger = document.querySelector(".hamburger");
+      if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+
+</html>

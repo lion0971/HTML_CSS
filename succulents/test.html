@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圓形擴散填滿藍色</title>
+<style>
+body {
+  height: 200vh; /* 滾動測試 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.box {
+  width: 300px;
+  height: 200px;
+  border: 2px solid #ccc;
+  position: relative;
+  overflow: hidden;
+  background-color: lightgray; /* 底色 */
+}
+
+/* 覆蓋層 */
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+
+  /* 使用 radial-gradient 做羽化邊緣 */
+  mask-image: radial-gradient(circle at top left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(circle at top left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: top left;
+  -webkit-mask-position: top left;
+  mask-size: 0% 0%; /* 初始半徑 0% */
+  -webkit-mask-size: 0% 0%;
+}
+
+.fill.active {
+  animation: fillBlue 10s linear forwards;
+}
+
+@keyframes fillBlue {
+  0% {
+    mask-size: 0% 0%;
+    -webkit-mask-size: 0% 0%;
+  }
+  100% {
+    mask-size: 200% 200%; /* 從左上角擴散填滿整個框 */
+    -webkit-mask-size: 200% 200%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+  <div class="fill"></div>
+</div>
+
+<script>
+const fill = document.querySelector('.fill');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      fill.classList.add('active');
+    }
+  });
+}, { threshold: 0.5 });
+
+observer.observe(fill.parentElement);
+</script>
+
+</body>
+</html>

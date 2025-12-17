@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <title>影片設計</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      width: 100vw;
+      background-color: rgba(240, 248, 255, 0.557);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header .nav1 {
+      display: flex;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.772)
+    }
+
+    header .nav1 img {
+      height: 7vh;
+      padding: 0 30px;
+      object-fit: contain;
+    }
+
+    header .nav1 ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header .nav1 ul li a {
+      text-decoration: none;
+      color: #003366;
+      font-size: large;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      animation: bgMove 60s linear infinite alternate;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #003366;
+      text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .wholeBody img {
+      display: block;
+      margin: 0 auto;
+      padding: 30px;
+      width: 50vw;
+    }
+
+    /*手機*/
+    /* 漢堡按鈕預設隱藏 */
+    .hamburger {
+      display: none;
+      font-size: 30px;
+      color: #0000ff;
+      /* 橘色，呼應便當質感 */
+      cursor: pointer;
+      user-select: none;
+
+      z-index: 10;
+      align-items: center;
+    }
+
+    /* 下拉選單預設隱藏 */
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 200px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .dropdown-menu button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 14px 20px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .dropdown-menu button:hover {
+      background: rgba(255, 140, 0, 0.85);
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .video-container {
+      display: flex;
+      flex-wrap: wrap;
+      /* 允許自動換行 */
+      justify-content: center;
+      /* 讓影片水平置中 */
+      gap: 20px;
+      /* 影片之間的間距 */
+      padding: 20px;
+      /* 與邊界的距離 */
+    }
+
+    .video-container iframe {
+      width: 560px;
+      height: 315px;
+      max-width: 100%;
+      /* 響應式縮放，避免太寬 */
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      header .nav1 ul {
+
+        display: none;
+        /* 隱藏原本左側按鈕 */
+      }
+
+
+      /* 漢堡按鈕預設隱藏 */
+      .hamburger {
+        display: block;
+
+      }
+
+      .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        opacity: 0;
+        transform: translateY(-20px);
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-menu.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="nav1">
+      <img src="./images/logo.png" alt="">
+      <ul>
+        <li><a href="./index.html">首頁</a></li>
+        <li><a href="./stationBox.html">精選便當</a></li>
+        <li><a href="./coBrandingBox.html">設計便當</a></li>
+        <li><a href="./video.html">設計影片</a></li>
+      </ul>
+      <!-- 漢堡按鈕 -->
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <!-- 下拉選單 -->
+    <div class="dropdown-menu">
+      <button onclick="location.href='./index.html'">首頁</button>
+      <button onclick="location.href='./stationBox.html'">精選便當</button>
+      <button onclick="location.href='./coBrandingBox.html'">設計便當</button>
+      <button onclick="location.href='./video.html'">設計影片</button>
+    </div>
+
+
+  </header>
+
+  <div class="video-container">
+    <iframe width="315" height="576" src="https://www.youtube.com/embed/bwg3UgGvPQA" title="2025新北投車站" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/B9f5Er2dUuc?si=HXXsuo-uqI1cnlj6"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
+
+  <script>
+    /*-----------------------------
+      手機版選單 toggle
+    -----------------------------*/
+    function toggleMenu() {
+      const menu = document.querySelector(".dropdown-menu");
+      menu.classList.toggle("show");
+    }
+
+    // 手機版按鈕也能顯示內容
+    const dropdownButtons = document.querySelectorAll(".dropdown-menu button");
+    dropdownButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const bentoId = btn.dataset.bento;
+        const wrapper = document.getElementById(bentoId);
+        showBento(wrapper);
+      });
+    });
+
+    // 點外部關閉選單
+    document.addEventListener("click", function (event) {
+      const menu = document.querySelector(".dropdown-menu");
+      const hamburger = document.querySelector(".hamburger");
+      if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Succuleaf_聯絡我們</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./js/script.js"></script>
+  <style>
+    body {
+      line-height: 2;
+      background-image: url(./images/index/ads/ads6.jpg);
+    }
+
+
+    .hero {
+    /* ... 保持您原有的样式 ... */
+    width: 30%;
+    margin: 40vh auto;
+    padding: 5em; /* 這是您想讓連結覆蓋的範圍 */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* 關鍵：為絕對定位的子元素 .contact 提供參考點 */
+    background: #ffffffa8;
+    border-radius: 5em;
+    z-index: 1;
+    animation: floatY 6s ease-in-out infinite;
+    cursor: pointer;
+    /* 移除 .hero 上的 text-align 和 display 相關屬性，或將其移動到 .contact 上，
+       因為 .contact 現在是主要的內容容器。 */
+}
+
+/* 確保背景和模糊效果保留在 .hero 上 */
+.hero::before {
+    /* ... 保持不變 ... */
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background: rgba(255, 255, 255, 0.6);
+    filter: blur(20px);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+/* 新增或修改 .contact 的樣式 */
+.hero .contact {
+    /* 關鍵步驟：讓連結覆蓋整個 .hero 區域 */
+    position: absolute;
+    inset: 0; /* 讓 top/right/bottom/left 都為 0，覆蓋父元素 .hero 的內容區和 padding 區 */
+
+    /* 確保內容（h1）在連結內正確居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* 將所有顯示相關的樣式從 .hero 移到 .contact */
+    text-align: center;
+    text-decoration: none; /* 移除連結下劃線，如果需要 */
+    color: inherit; /* 繼承顏色，如果需要 */
+    
+    /* Z-index 確保連結在動畫和背景之上 */
+    z-index: 2; 
+}
+
+/* 讓 h1 在連結內保持正常的文本樣式 */
+.hero .contact h1 {
+    margin: 0; /* 移除 h1 默認的 margin，避免影響居中 */
+    /* 添加 h1 專屬的文本樣式 */
+}
+
+@keyframes floatY {
+    /* ... 保持不變 ... */
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-18px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+    .image-text {
+      position: relative;
+    }
+
+    .image-text img {
+      width: 100vw;
+      /* 寬度等同視窗 */
+      height: 100vh;
+      /* 固定高度 */
+      object-fit: cover;
+      /* 等比填滿，超出裁切 */
+      display: block;
+      /* 去除 img 底部空隙 */
+      margin-top: 10vw 0;
+    }
+
+    .image-text .it1 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 5vw;
+
+    }
+
+    .image-text .it1 .marquee {
+      color: rgb(0, 0, 0);
+      width: 500px;
+      height: 300px;
+      overflow: hidden;
+      /* 超出隱藏 */
+      border: 1px solid #ffffff;
+      border-radius: 10vh;
+    }
+
+    .image-text .it1 .marquee-content {
+      display: flex;
+      flex-direction: column;
+      animation: scrollUp 8s linear infinite;
+    }
+
+    .image-text .it1 .marquee-content p {
+      margin: 0;
+      padding: 10px 0;
+      text-align: center;
+      white-space: nowrap;
+      /* 英文不換行 */
+    }
+
+    /* 向上滾動動畫 */
+    @keyframes scrollUp {
+      0% {
+        transform: translateY(100%);
+      }
+
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+
+    .image-text .it2 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 3vw;
+      margin: 2vw;
+      color: rgb(0, 0, 0);
+      font-size: 25px;
+      font-weight: 500;
+      font-style: oblique;
+      /* 加這行讓文字斜體 */
+    }
+
+    .midtext {
+      color: white;
+      font-size: 30px;
+      text-align: center;
+      align-items: center;
+      margin: 20vh;
+    }
+
+    .centered {
+      margin: 0 auto 10vh;
+      padding: 8em 8em 5em 8em;
+      border-radius: 13em;
+      width: 80%;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    .centered .title {
+      display: flex;
+      align-items: center;
+      vertical-align: middle;
+      gap: 15px;
+      margin-bottom: 5vh;
+    }
+
+    .centered h1 {
+      margin: 15px;
+    }
+
+    .centered img {
+      width: 3vw;
+      text-align: center;
+
+    }
+
+    .centered p {
+      font-size: 1.25rem;
+    }
+
+
+    /* Card & Grid */
+    .grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+
+
+    .hero .contact {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+
+    /* Footer */
+    footer {
+      padding: 3rem 1rem;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div style="position: relative;">
+
+      <h1 style="font-size: 2.25rem;font-weight: normal;">
+        <a href="./index.html" style="text-decoration: none; color: inherit;">
+          <img class="logo" src="./images/index/logo.png">
+          <span>SuccuLeaf</span> 溯植綠
+        </a>
+      </h1>
+    </div>
+
+    <nav class="nav-desktop">
+      <a href="./brand.html">品牌故事</a>
+      <a href="./items.html">迷你展示</a>
+      <a href="./contact.html">聯絡我們</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero">
+    <a class="contact" href="https://lin.ee/NgHW9ea">
+      <h1>
+        聯絡我們
+      </h1>
+    </a>
+  </section>
+
+  <footer>
+    © 2025 SuccuLeaf 多肉生活
+  </footer>
+
+  <button id="backToTopBtn" title="回到最頂端">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+
+</body>
+
+</html>

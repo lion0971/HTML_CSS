@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>首頁</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <style>
+    .together {
+      height: 1000px;
+      position: relative;
+      background-size: cover;
+    }
+
+    .together0 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+    }
+
+    .together1 {
+
+      position: sticky;
+      top: 0;
+      /* 加上 top 才會黏住 */
+    }
+
+
+    /*左半部廣告輪播 */
+    .ads-notice {
+      display: flex;
+      position: relative;
+    }
+
+    .ads-notice .carousel-container {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 50vw;
+      height: 100vh;
+      overflow: hidden;
+
+      /* 羽化邊框：讓外框四邊柔化 */
+      -webkit-mask-image: radial-gradient(circle 80% at 50% 50%,
+          rgba(0, 0, 0, 1) 60%,
+          rgba(0, 0, 0, 0) 100%);
+      mask-image: radial-gradient(circle 80% at 50% 50%,
+          rgba(0, 0, 0, 1) 60%,
+          rgba(0, 0, 0, 0) 100%);
+    }
+
+    .ads-notice .carousel-container .carousel {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .ads-notice .carousel-container .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .ads-notice .ads2 {
+      padding: 20px;
+      top: 20px;
+      /* ← 這不是 sticky 的 top */
+    }
+
+    .ads-notice .ads2 h2 {
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      line-height: 2em;
+      width: 50vw;
+      height: 100vh;
+      padding: 0 10vw;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+      font-weight: large;
+    }
+
+    .ads-notice .ads2 h2.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      height: 30vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 15em 0;
+    }
+
+    .hero h2 {
+      font-weight: large;
+      color: #00271c;
+
+      line-height: 2;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+      font-weight: large;
+    }
+
+    .hero h2.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: #4b5563;
+      max-width: 36rem;
+      line-height: 1.75rem;
+    }
+
+    /*橫向圖片滑動*/
+    .container {
+      width: 80%;
+      /* 容器寬度 */
+      height: 200px;
+      /* 容器高度 */
+      overflow: hidden;
+      /* 超出範圍隱藏 */
+      margin: 30px auto;
+      position: relative;
+    }
+
+    .scroll-wrapper {
+      display: flex;
+      transition: transform 0.2s ease;
+      /* 平滑滑動 */
+    }
+
+    .scroll-wrapper img {
+      width: 280px;
+
+      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    /*橫向圖片滑動-止*/
+
+
+    /* Card & Grid */
+    .grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 1rem;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- Header -->
+  <header>
+
+    <div style="position: relative;">
+
+      <h1 style="font-size: 2.25rem;font-weight: normal;">
+        <img class="logo" src="./images/index/logo.png">
+        <span>SuccuLeaf</span> 一逑葉序
+      </h1>
+    </div>
+
+
+
+
+    <nav class="nav-desktop">
+      <a href="./brand.html">品牌故事</a>
+      <a href="#gallery">迷你展示</a>
+      <a href="#contact">聯絡我們</a>
+    </nav>
+  </header>
+
+  <!--分散到聚集的花-->
+  <section class="together" style="background-image: url(./images/index/pot.jpg);">
+    <div class="together0">
+      <div class="ads-notice">
+        <div class="carousel-container">
+          <div class="carousel">
+            <img src="./images/index/ads/ads1.jpg" alt="">
+            <img src="./images/index/ads/ads2.jpg" alt="">
+            <img src="./images/index/ads/ads3.jpg" alt="">
+            <img src="./images/index/ads/ads5.jpg" alt="">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="together1">
+      <img src="./images/index/items/succ1.png" class="succ" id="s1">
+      <img src="./images/index/succulenturn1.png" class="succ" id="s2">
+      <img src="./images/index/succulenturn2.png" class="succ" id="s3">
+      <img src="./images/index/succulenturn3.png" class="succ" id="s4">
+      <img src="../images/index/succulenturn4.png" class="succ" id="s5">
+    </div>
+  </section>
+  <!--左半部廣告輪播-->
+  <div class="ads-notice">
+    <div class="carousel-container">
+      <div class="carousel">
+        <img src="./images/index/ads/f2.jpg" alt="">
+        <img src="./images/index/ads/f1.jpg" alt="">
+        <img src="./images/index/ads/ads3.jpg" alt="">
+        <img src="./images/index/ads/f4.jpg" alt="">
+      </div>
+    </div>
+    <div class="ads2">
+      <h2>
+        手作、學習與佈置<br>
+        找回生活中的步調, <br>
+        以綠意點亮生活的每一處角落。
+      </h2>
+    </div>
+  </div>
+
+  </div>
+
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2>無論是送禮、擺飾，或是想為自己添一點綠意，<br>
+      「一畝葉田」都是最溫暖的選擇。<br>願每一次的挑選，<br>
+      都能遇見屬於自己的那份幸福。</h2>
+  </section>
+
+
+  <section id="scroll-area">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="./images/index/ads/video2.mp4" type="video/mp4">
+    </video>
+
+    <div class="content">
+      <div id="plant-layer"></div>
+
+      <div id="title-block">
+        <h3>群聚律動</h3>
+        <p>Slow down 與花草共呼吸</p>
+        <div class="container" id="container">
+          <div class="scroll-wrapper" id="scrollWrapper">
+            <img src="./images/index/ads/f1.jpg" alt="plant">
+            <img src="./images/index/ads/f2.jpg" alt="plant">
+            <img src="./images/index/ads/f3.jpg" alt="plant">
+            <img src="./images/index/ads/f4.jpg" alt="plant">
+            <img src="./images/index/ads/f1.jpg" alt="plant">
+            <img src="./images/index/ads/f2.jpg" alt="plant">
+            <img src="./images/index/ads/f3.jpg" alt="plant">
+            <img src="./images/index/ads/f4.jpg" alt="plant">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Contact -->
+  <section id="contact" class="container">
+    <h3 class="section-title">聯絡我們</h3>
+    <p>Email: succuleaf@gmail.com</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>© 文青多肉植藝</footer>
+
+
+  <script>
+    // <!-- Framer Motion Animation -->
+    const carousels = document.querySelectorAll('.carousel');
+
+    carousels.forEach(carousel => {
+      let slides = Array.from(carousel.children);
+      const interval = 2500;
+
+      const firstClone = slides[0].cloneNode(true);
+      const lastClone = slides[slides.length - 1].cloneNode(true);
+
+      firstClone.classList.add("clone");
+      lastClone.classList.add("clone");
+
+      carousel.appendChild(firstClone);
+      carousel.insertBefore(lastClone, slides[0]);
+
+      slides = Array.from(carousel.children);
+      let index = 1;
+
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+
+      function nextSlide() {
+        index++;
+        carousel.style.transition = "transform 0.8s ease";
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+      }
+
+      carousel.addEventListener("transitionend", () => {
+        if (slides[index].classList.contains("clone")) {
+          carousel.style.transition = "none";
+
+          if (index === slides.length - 1) {
+            index = 1;
+          } else if (index === 0) {
+            index = slides.length - 2;
+          }
+
+          carousel.style.transform = `translateX(-${index * 100}%)`;
+        }
+      });
+
+      setInterval(nextSlide, interval);
+    });
+
+
+
+    // scattered → gather
+    const imgs = [];
+    for (let i = 1; i <= 5; i++) {
+      imgs.push({
+        el: document.getElementById("s" + i),
+        x: (Math.random() * 600 - 300),
+        y: (Math.random() * 400 - 200),
+        rot: (Math.random() * 160 - 80)
+      });
+    }
+
+    function update() {
+      const p = Math.min(1, window.scrollY / window.innerHeight);
+
+      imgs.forEach(obj => {
+        const gatherY = 150; // ← 聚集位置往下 200px
+
+        const tx = obj.x * (1 - p);
+        const ty = obj.y * (1 - p) + gatherY;
+
+        const r = obj.rot + p * 360;
+
+        obj.el.style.transform =
+          `translate(${tx}px, ${ty}px) rotate(${r}deg) scale(${1 - p * 0.3})`;
+
+        obj.el.style.opacity = 0.8 + p * 0.2;
+      });
+    }
+
+    window.addEventListener("scroll", update);
+    update();
+
+    /*文字上移浮現*/
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target); // 加上這行只播放一次
+        }
+      });
+    }, { threshold: 0.4 }); // 元素至少 50% 進入視窗才觸發
+
+    const h2Elements = document.querySelectorAll('.ads-notice h2, .hero h2');
+    h2Elements.forEach(h2 => observer.observe(h2));
+
+
+    //橫向滑動
+const scrollWrapper = document.getElementById('scrollWrapper');
+let scrollX = 0;
+
+window.addEventListener('wheel', (e) => {
+    e.preventDefault(); // 阻止整個頁面滾動
+
+    const container = document.querySelector('.container');
+    const containerWidth = container.offsetWidth;
+    const contentWidth = scrollWrapper.scrollWidth;
+
+    scrollX -= e.deltaY; // 滾輪向下圖片向左
+     
+    // 限制範圍
+    if(scrollX > 0) scrollX = 0;
+    if(scrollX < containerWidth - contentWidth) scrollX = containerWidth - contentWidth;
+
+    scrollWrapper.style.transform = `translateX(${scrollX}px)`;
+}); // 注意：必須設 passive: false 才能 preventDefault
+  </script>
+
+</body>
+
+</html>

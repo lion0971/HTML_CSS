@@ -1,0 +1,379 @@
+/* ===== 通用樣式 ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500&display=swap');
+
+* {
+  font-family: 'Noto Serif TC', serif, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+
+  color: #1f2937;
+  /* text-gray-800 */
+  background-color: #faf7f2;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  padding: 1.2rem 0;
+  text-align: center;
+  font-size: 2.25rem;
+  letter-spacing: 0.1em;
+}
+
+header h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.25rem;
+  font-weight: normal;
+  gap: 0.5rem;
+}
+
+header h1 a {
+    /* 原有的樣式 */
+    text-decoration: none; /* 移除超連結底線 */
+    color: inherit;      /* 繼承父元素的文字顏色 */
+    
+    /* *** 新增：將超連結容器設為 Flex 佈局 *** */
+    display: flex;
+    justify-content: center; /* 讓內容居中 (繼承 h1 的效果) */
+    align-items: center;     /* 垂直置中 (繼承 h1 的效果) */
+    gap: 0.5rem;             /* 內部的元素間隔 (如果有需要，可繼承 h1 的 gap) */
+    font-size: 2.25rem;
+}
+
+
+header .logo {
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+
+}
+
+header span {
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+header nav1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+}
+
+/* Section */
+section {
+  width: 100%;
+}
+
+/* Scattered → gather 圖片 */
+
+.succ {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  /* 從上方開始 */
+  transform: translate(-50%, 0);
+  max-width: 150px;
+  transition: transform 0.2s linear, opacity 0.2s linear;
+}
+
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #047857;
+}
+
+/* hover:text-green-700 */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ===== 容器 & Flex / Grid ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+
+
+.flex-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.grid-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .nav-desktop {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Sticky / Scroll container */
+.sticky-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== Header ===== */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  z-index: 50;
+}
+
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Scroll Area ===== */
+#scroll-area {
+  background-image: url(../images/index/ads/black.jpg);
+  position: relative;
+  height: 280vh;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 讓影片填滿背景 */
+  z-index: -1;
+  /* 放到內容後面 */
+}
+
+.content {
+  position: sticky;
+  top: 0;
+  /* sticky 必須有定位點 */
+  height: 100vh;
+  /* 才能垂直置中 */
+  display: flex;
+  align-items: center;
+  /* 垂直置中 */
+  justify-content: center;
+  /* 水平置中 */
+  z-index: 1;
+  color: white;
+  font-size: 2rem;
+}
+
+#plant-layer {
+  position: absolute;
+  inset: 0;
+}
+
+#title-block {
+  width: 90%;
+  height: 50%;
+  z-index: 20;
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+#title-block h3 {
+  font-size: 2.25rem;
+  font-weight: bold;
+}
+
+#title-block p {
+  color: #4b5563;
+  margin-top: 0.5rem;
+}
+
+/* ===== Section Titles ===== */
+h3.section-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* ===== About Section ===== */
+#about {
+  padding: 6rem 1.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+#about p {
+  max-width: 42rem;
+  color: #374151;
+  line-height: 1.75rem;
+}
+
+/* ===== Gallery Section ===== */
+#gallery {
+  padding: 6rem 1.5rem;
+}
+
+#gallery img {
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+/* ===== Contact Section ===== */
+#contact {
+  padding: 6rem 1.5rem;
+  background: rgba(255, 251, 235, 0.6);
+}
+
+#contact p {
+  color: #374151;
+}
+
+/* ===== Footer ===== */
+footer {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* ===== Plant Images Animation Layer ===== */
+.plant-img {
+  position: absolute;
+  width: 10rem;
+  opacity: 0.9;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* -------------------------------------- */
+/* 2. 回到最頂端按鈕樣式 */
+/* -------------------------------------- */
+
+#backToTopBtn {
+    /* 定位：固定在畫面右下角 */
+    position: fixed;
+    bottom: 25px; /* 距離底部 25 像素 */
+    right: 25px;  /* 距離右邊 25 像素 */
+    z-index: 99;  /* 確保按鈕浮在所有內容之上 */
+
+    /* 外觀設計：圓形按鈕 */
+    width: 55px;
+    height: 55px;
+    border-radius: 50%; /* 圓形 */
+    border: none;       /* 無邊框 */
+
+    /* 顏色設計：呼應品牌色調 */
+    background-color: #556b2fd2; /* 深橄欖綠色 (Olive Green) - 沉穩且自然的綠色 */
+    color: #FFFFFF;            /* 箭頭顏色為白色 */
+
+    /* 陰影設計：營造質感與立體感 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    
+    /* 隱藏/顯示及過渡效果 */
+    display: none; /* 預設隱藏 (JS 會控制顯示) */
+    opacity: 0;    /* 初始透明度為 0 */
+    transition: opacity 0.3s ease, transform 0.2s ease, background-color 0.2s ease;
+
+    /* 字型相關 (如果您決定使用文字而不是 SVG) */
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0; /* 移除預設的內距 */
+
+    /* ------------------------------------- */
+    /* 🌟 核心修改：內陰影 (內凹與透亮) 🌟 */
+    /* ------------------------------------- */
+    box-shadow: 
+        /* 1. 內凹陰影 (深色) - 營造立體感 */
+        inset 0 0 5px rgba(0, 0, 0, 0.4),
+        /* 2. 內部高光 (淺色/白色) - 營造透亮感 */
+        inset 0 0 10px rgba(255, 255, 255, 0.3); 
+        /* 3. 外陰影 (輕微，可選) - 讓按鈕從背景中浮出 */
+        /* 0 2px 4px rgba(0, 0, 0, 0.1); */ 
+    
+    /* ... (其他不變的顯示屬性) ... */
+    display: none; 
+    opacity: 0;
+}
+
+/* 按鈕內部的 SVG 箭頭樣式 */
+#backToTopBtn svg {
+    width: 40%;
+    height: 40%;
+    display: block; /* 讓 SVG 居中更容易 */
+    margin: auto;
+}
+
+/* 懸停效果調整：維持質感並增加反應 */
+#backToTopBtn:hover {
+    background-color: #6B8E23; /* 懸停時略微變亮 */
+    transform: scale(1.05); /* 輕微放大 */
+    
+    /* 🌟 懸停時內陰影微調 🌟 (讓透亮感更明顯或更柔和) */
+    box-shadow: 
+        inset 0 0 8px rgba(0, 0, 0, 0.5), /* 內凹加深 */
+        inset 0 0 15px rgba(255, 255, 255, 0.4); /* 高光加強 */
+}
+
+/* JS 控制按鈕顯示時的樣式 */
+#backToTopBtn.show {
+    display: block;
+    opacity: 1;
+}

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <title>台鐵便當選單</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      width: 100vw;
+      background-color: rgba(240, 248, 255, 0.557);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header .nav1 {
+      display: flex;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.772)
+    }
+
+    header .nav1 img {
+      width: 200px;
+      padding: 0 30px;
+    }
+
+    header .nav1 ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    body {
+      margin: 0;
+      background: url(./images/foodBack.png) no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Noto Sans TC", sans-serif;
+      overflow: hidden;
+      animation: bgMove 60s linear infinite alternate;
+    }
+
+    @keyframes bgMove {
+      from {
+        background-position: center center;
+      }
+
+      to {
+        background-position: center bottom;
+      }
+    }
+
+    .wholeBody {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 左側選單 */
+    .boxMenu {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin: 60px 40px;
+      width: 220px;
+      z-index: 5;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #003366;
+      text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.25);
+      color: #003366;
+      border-radius: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+      transform: skewX(-25deg);
+      transition: 0.5s;
+    }
+
+    button:hover::after {
+      left: 125%;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    button:active {
+      transform: translateY(2px);
+    }
+
+    /* 點擊消失動畫 */
+    button.move-out {
+      transform: translateX(150px);
+      opacity: 0;
+    }
+
+    button.move-in {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    /* 主要內容區 */
+    .box {
+      display: flex;
+      position: relative;
+      padding: 20px;
+    }
+
+    /* 便當圖 */
+    .bento-wrapper {
+      position: absolute;
+      top: 1vh;
+      left: 15vw;
+      width: 400px;
+      height: 400px;
+      opacity: 0;
+      transform: scale(0.5) rotate(-10deg);
+      transition: transform 1s ease-out, opacity 1s ease-out;
+      filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+    }
+
+    .bento-wrapper.show {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7));
+    }
+
+    .bento-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      animation: rotateBento 40s linear infinite;
+    }
+
+    @keyframes rotateBento {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* 文字區 */
+    .bento-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bento-desc1 {
+      position: absolute;
+      top: 12%;
+      left: 30%;
+      opacity: 0;
+      font-size: 45px;
+      font-weight: bold;
+      color: #ff6600;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px 16px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      transform: translateX(100px);
+      transition: all 0.6s ease;
+    }
+
+    .bento-desc2 {
+      position: absolute;
+      top: 27%;
+      left: 500%;
+      width: 35vw;
+      opacity: 0;
+      text-align: left;
+      font-size: 17px;
+      line-height: 1.8;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transform: translateX(100px);
+      transition: all 0.8s ease;
+    }
+
+    .bento-text.show .bento-desc1,
+    .bento-text.show .bento-desc2 {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* 手機版輪播圓點 */
+    .dots {
+      display: none;
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dot.active {
+      background-color: #fff;
+    }
+
+    /* RWD：小螢幕改顯示圓點、隱藏按鈕 */
+    @media (max-width: 768px) {
+      .boxMenu {
+        display: none;
+      }
+
+      .dots {
+        display: flex;
+      }
+
+      .bento-wrapper {
+        left: 50%;
+        transform: translateX(-50%) scale(0.5);
+      }
+
+      .bento-desc1 {
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-size: 32px;
+      }
+
+      .bento-desc2 {
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 80vw;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav1">
+      <img src="./images/logo.png" alt="">
+      <ul>
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="about.html">車站便當</a></li>
+        <li><a href="products.html">聯名便當</a></li>
+        <li><a href="contact.html">聯絡我們</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="wholeBody">
+    <!-- 左側按鈕區 -->
+    <div class="boxMenu">
+      <button data-bento="pigbox">排骨便當</button>
+      <button data-bento="chickbox">雞腿便當</button>
+      <button data-bento="vibox">全素便當</button>
+    </div>
+
+    <!-- 主要展示區 -->
+    <div class="box">
+      <div id="pigbox" class="bento-wrapper">
+        <img src="./images/pigbox.png" class="bento-img" alt="pigbox">
+      </div>
+      <div id="chickbox" class="bento-wrapper">
+        <img src="./images/chickbox.png" class="bento-img" alt="chickbox">
+      </div>
+      <div id="vibox" class="bento-wrapper">
+        <img src="./images/vibox.png" class="bento-img" alt="vibox">
+      </div>
+
+      <div id="pigbox-text" class="bento-text">
+        <div class="bento-desc1">排骨便當</div>
+        <div class="bento-desc2">
+          <p>🍖 香滷排骨搭配台灣白米飯，配上蛋、豆製品與時令蔬菜。</p>
+          <p>每日限量供應，請提前預約。</p>
+          <p>☎ 訂購專線：02-24553561</p>
+        </div>
+      </div>
+
+      <div id="chickbox-text" class="bento-text">
+        <div class="bento-desc1">雞腿便當</div>
+        <div class="bento-desc2">
+          <p>🍗 經典香滷雞腿，搭配三樣時蔬與滑嫩豆製品。</p>
+          <p>每日新鮮製作，限量供應。</p>
+          <p>☎ 訂購專線：02-24553561</p>
+        </div>
+      </div>
+
+      <div id="vibox-text" class="bento-text">
+        <div class="bento-desc1">全素便當</div>
+        <div class="bento-desc2">
+          <p>🥦 豆包、高麗菜、香菇與多樣蔬食，健康清爽。</p>
+          <p>使用非基改豆製品，敬請安心食用。</p>
+          <p>☎ 訂購專線：02-24553561</p>
+        </div>
+      </div>
+
+      <!-- 輪播圓點 -->
+      <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentBento = null;
+    let currentText = null;
+    let lastButton = null;
+
+    const buttons = document.querySelectorAll(".boxMenu button");
+    const dots = document.querySelectorAll(".dot");
+
+    function showBento(wrapper) {
+      const textBlock = document.getElementById(wrapper.id + "-text");
+
+      if (currentBento && currentBento !== wrapper) {
+        currentBento.classList.remove("show");
+        if (currentText) currentText.classList.remove("show");
+      }
+
+      wrapper.classList.remove("show");
+      textBlock.classList.remove("show");
+      void wrapper.offsetWidth;
+
+      wrapper.classList.add("show");
+      textBlock.classList.add("show");
+
+      currentBento = wrapper;
+      currentText = textBlock;
+    }
+
+    // 左側按鈕邏輯
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (lastButton && lastButton !== btn) {
+          lastButton.classList.remove("move-out");
+          lastButton.classList.add("move-in");
+
+          lastButton.addEventListener("transitionend", () => {
+            lastButton.classList.remove("move-in");
+          }, { once: true });
+        }
+
+        btn.classList.add("move-out");
+        lastButton = btn;
+
+        const bentoId = btn.dataset.bento;
+        const wrapper = document.getElementById(bentoId);
+        showBento(wrapper);
+      });
+    });
+
+    // 手機輪播邏輯
+    let index = 0;
+    const bentoIds = ["pigbox", "chickbox", "vibox"];
+
+    function showSlide(i) {
+      index = (i + bentoIds.length) % bentoIds.length;
+      const wrapper = document.getElementById(bentoIds[index]);
+      showBento(wrapper);
+
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => showSlide(i));
+    });
+
+    // 自動輪播 (手機版)
+    setInterval(() => {
+      if (window.innerWidth <= 768) {
+        showSlide(index + 1);
+      }
+    }, 5000);
+  </script>
+</body>
+</html>

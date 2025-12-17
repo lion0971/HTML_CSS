@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Succuleaf_品牌故事</title>
+  <link rel="stylesheet" href="./css/index.css">
+ <script src="./js/script.js"></script>
+  <style>
+    body {
+      line-height: 2;
+      background-image: url(./images/index/ads/ads6.jpg);
+    }
+
+
+    .hero {
+      width: 30%;
+      /* 只有它滿版 */
+      margin: 40vh auto;
+      padding: 5em;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background: #ffffffa8;
+      border-radius: 5em;
+      z-index: 1;
+      animation: floatY 6s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      background: rgba(255, 255, 255, 0.6);
+      filter: blur(20px);
+      border-radius: inherit;
+      z-index: -1;
+    }
+
+    @keyframes floatY {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-18px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+
+    .image-text {
+      position: relative;
+    }
+
+    .image-text img {
+      width: 100vw;
+      /* 寬度等同視窗 */
+      height: 100vh;
+      /* 固定高度 */
+      object-fit: cover;
+      /* 等比填滿，超出裁切 */
+      display: block;
+      /* 去除 img 底部空隙 */
+      margin-top: 10vw 0;
+    }
+
+    .image-text .it1 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 5vw;
+
+    }
+
+    .image-text .it1 .marquee {
+      color: rgb(0, 0, 0);
+      width: 500px;
+      height: 300px;
+      overflow: hidden;
+      /* 超出隱藏 */
+      border: 1px solid #ffffff;
+      border-radius: 10vh;
+    }
+
+    .image-text .it1 .marquee-content {
+      display: flex;
+      flex-direction: column;
+      animation: scrollUp 8s linear infinite;
+    }
+
+    .image-text .it1 .marquee-content p {
+      margin: 0;
+      padding: 10px 0;
+      text-align: center;
+      white-space: nowrap;
+      /* 英文不換行 */
+    }
+
+    /* 向上滾動動畫 */
+    @keyframes scrollUp {
+      0% {
+        transform: translateY(100%);
+      }
+
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+
+    .image-text .it2 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 3vw;
+      margin: 2vw;
+      color: rgb(0, 0, 0);
+      font-size: 25px;
+      font-weight: 500;
+      font-style: oblique;
+      /* 加這行讓文字斜體 */
+    }
+
+    .midtext {
+      color: white;
+      font-size: 30px;
+      text-align: center;
+      align-items: center;
+      margin: 20vh;
+    }
+
+    .centered {
+      margin: 0 auto 10vh;
+      padding: 8em 8em 5em 8em;
+      border-radius: 13em;
+      width: 80%;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    .centered .title {
+      display: flex;
+      align-items: center;
+      vertical-align: middle;
+      gap: 15px;
+      margin-bottom: 5vh;
+    }
+
+    .centered h1 {
+      margin: 15px;
+    }
+
+    .centered img {
+      width: 3vw;
+      text-align: center;
+
+    }
+
+    .centered p {
+      font-size: 1.25rem;
+    }
+
+
+    /* Card & Grid */
+    .grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative
+    }
+
+    .card img {
+      width: 30%;
+      margin-bottom: 1rem;
+      border-radius: 1rem;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover img {
+      transform: scale(1.5);
+      /* Flex 佈局計算完成後，再執行放大 */
+
+      /* 確保放大的圖片能浮在旁邊卡片的上方 */
+      position: relative;
+      /* 啟用 z-index */
+      z-index: 10;
+    }
+
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: #555;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 0.5rem 0;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .card button:hover {
+      background-color: #555;
+    }
+
+    .checkout-btn {
+      background: linear-gradient(135deg, #2c7590, #0d0d1f);
+      /* 漸層色 */
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 30px;
+      /* 圓角 */
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+      /* 陰影 */
+      transition: all 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-2px);
+      /* 懸浮效果 */
+      box-shadow: 0 12px 30px rgba(79, 70, 229, 0.45);
+    }
+
+    .checkout-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+    }
+
+
+    /* Footer */
+    footer {
+      padding: 3rem 1rem;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div style="position: relative;">
+
+      <h1 style="font-size: 2.25rem;font-weight: normal;">
+        <a href="./index.html" style="text-decoration: none; color: inherit;">
+          <img class="logo" src="./images/index/logo.png">
+          <span>SuccuLeaf</span> 溯植綠
+        </a>
+      </h1>
+    </div>
+
+    <nav class="nav-desktop">
+      <a href="./brand.html">品牌故事</a>
+      <a href="./items.html">迷你展示</a>
+      <a href="./contact.html">聯絡我們</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero">
+    <h1>種一點溫度在生活</h1>
+    <p>文青多肉品牌</p>
+  </section>
+
+  <div class="image-text">
+    <img src="./images/index/ads/f2.jpg" alt="">
+    <h2 class="it1">
+      <div class="marquee">
+        <div class="marquee-content">
+          <p>HELLO WORLD</p>
+          <p>TO BE OR</p>
+          <p>NOT TO BE</p>
+          <p>DO THE BEST</p>
+          <p>TO DO GOOD OR</p>
+          <p>NOT TO DO</p>
+          <p>DO MY BEST</p>
+        </div>
+      </div>
+
+    </h2>
+    <h2 class="it2">Inspired by Nature</h2>
+  </div>
+
+  <h3 class="midtext">Grow with Us</h3>
+
+  <section class="centered" id="story">
+    <div class="title">
+      <img src="./images/index/crap.png" alt="">
+      <h1>品牌故事</h1>
+    </div>
+
+    <p>在城市的一角，在繁忙生活裡跌跌撞撞的普通上班族。每天在家庭、通勤、忙不完的工作之間奔波，心裡常被壓得沉，彷彿喘一口完整的氣都需要勇氣。</p>
+
+    <p>直到有一天，下班路上，路邊看見一株被遺忘的小多肉。植物雖然嬌小，卻在夕陽下散發著一抹柔和的綠光，像是輕輕拍著肩，提醒著「殘存的一絲溫柔，還能夠看見」。心頭一暖，把它帶回了家。</p>
+
+    <p>意想不到的是，那株小小的多肉，成為了生活裡第一個讓自己願意慢下來的理由。<br>>
+      每天早晨，不再匆忙出門，而是先看看這個小生命，是否長高了些，是否更飽滿了一點。<br>開始注意陽光從窗邊灑下的角度、開始願意放慢節奏去感受呼吸。多肉沒有說話，但悄悄替生活裡留了一個溫暖的空隙。</p>
+
+    <p>漸漸地，發現：原來幸福不需要很大，只要是一點點，就足以照亮心底的角落。於是，決定把這份溫柔分享出去，創立了「SuccuLeaf」，希望每一位被生活追著跑、感到疲憊的你我，都能在這裡找到屬於自己的一抹療癒。</p>
+
+    <p>在店裡，每一株迷你都有自己的小故事：有的象徵堅韌、有的象徵陪伴、有的象徵重新開始。相信，每一株選中的，都會找到與它最契合的主人，像是一份命中註定的小小緣分。</p>
+
+    <p>「溯植綠」不只是賣植物的地方，而是一個讓人重新呼吸、重新與自己對話的溫暖角落。願每個帶走多肉的人，都能在忙碌的生活中，因為這小小的綠意，而重新找回屬於自己的那份小小幸福。
+    </p>
+    <p style="height: 5em; display: flex; justify-content: center; align-items: center;font-size:xx-large">-</p>
+
+  </section>
+
+  <section
+    style="margin-top: 8em;border-radius: 10vh; padding:4rem 1.5rem; max-width:80rem; margin:0 auto; text-align:center;background-color: rgba(255, 255, 255, 0.617)">
+    <h2 style="font-size:2.5rem; margin-bottom:3rem;">人氣多肉</h2>
+    <div class="grid grid-1 grid-2 grid-3">
+      <div class="card">
+        <img src="./images/index/succulenturn3.png" />
+        <h3>蝴蝶之舞錦</h3>
+        <p>粉紅小滾邊療癒的小巧植栽。</p>
+        <button onclick="addToCart('蝴蝶之舞錦','蝴蝶之舞錦',350,'./images/index/succulenturn3.png')">加入購物車</button>
+      </div>
+      <div class="card">
+        <img src="./images/index/succulenturn1.png" />
+        <h3>月影多肉</h3>
+        <p>色系粉嫩，線條柔和，非常適合桌上小景。</p>
+        <button onclick="addToCart('月影多肉','月影多肉',300,'./images/index/succulenturn1.png')">加入購物車</button>
+      </div>
+      <div class="card">
+        <img src="./images/index/succulenturn5.png" />
+        <h3>紫蝶</h3>
+        <p>被夢幻紫邊繚繞療癒的小巧植栽。</p>
+        <button onclick="addToCart('紫蝶','紫蝶',350,'./images/index/succulenturn5.png')">加入購物車</button>
+      </div>
+    </div>
+    <br>
+    <br>
+    <button class="checkout-btn" onclick="goCheckout()">前往結帳</button>
+  </section>
+
+  <footer>
+    © 2025 SuccuLeaf 多肉生活
+  </footer>
+
+<button id="backToTopBtn" title="回到最頂端">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+</button>
+
+  <script>
+    function addToCart(id, name, price, img) {
+      let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+      const item = cart.find(p => p.id === id);
+      if (item) {
+        item.qty += 1;
+      } else {
+        cart.push({ id, name, price, img, qty: 1 });
+      }
+
+      sessionStorage.setItem('cart', JSON.stringify(cart));
+      alert('商品已加入購物車');
+    }
+
+    function goCheckout() {
+      window.location.href = 'checkout.html';
+    }
+  </script>
+
+</body>
+
+</html>

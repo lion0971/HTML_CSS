@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台鐵風格首頁 - 火車動畫示例</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      overflow: hidden; /* 不出現滾動條 */
+      background: linear-gradient(to top, #bcdcff 0%, #ffffff 70%);
+      position: relative;
+      height: 100vh;
+    }
+
+    header {
+      width: 100vw;
+      height: 100vh;
+      background-image: url('./images/scenery.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header .nav1{
+      display: flex;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.772)
+    }
+
+    header .nav1 img{
+      width: 200px;
+      padding: 0 30px;
+    }
+
+    header .nav1 ul{
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .headertree{
+      position: absolute;
+      z-index: 10;
+      top: 80vh;
+    }
+
+    .train {
+      position: absolute;
+      bottom: 80px;
+      width: 1000px;
+      height: auto;
+      pointer-events: none;
+    }
+
+    /* 左→右 */
+    @keyframes moveRight {
+      from {
+        transform: translateX(-50vw);
+      }
+      to {
+        transform: translateX(120vw);
+      }
+    }
+
+    /* 右→左 */
+    @keyframes moveLeft {
+      from {
+        transform: translateX(0) scaleX(-1);
+      }
+      to {
+        transform: translateX(calc(-110vw - var(--train-width))) scaleX(-1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav1">
+      <img src="./images/logo.png" alt="">
+      <ul>
+        <li><a href="./index.html">首頁</a></li>
+        <li><a href="./20251027.html">車站便當</a></li>
+        <li><a href="products.html">聯名便當</a></li>
+        <li><a href="contact.html">聯絡我們</a></li>
+      </ul>
+    </nav>
+    <div class="headertree">
+      <img src="./images/scenery-2.png" alt="">
+    </div>
+    
+  </header>
+
+  <script>
+    const trainImages = [
+      "./images/orange_car.png",
+      "./images/blue_car.png"
+    ];
+
+    function spawnTrain() {
+      const train = document.createElement("img");
+      train.src = trainImages[Math.floor(Math.random() * trainImages.length)];
+      train.classList.add("train");
+
+      // 隨機方向
+      const direction = Math.random() > 0.5 ? "right" : "left";
+      // 隨機速度（秒）
+      const duration = (2 + Math.random() * 4).toFixed(1) + "s";
+
+      document.body.appendChild(train); // 先加入 DOM
+      const trainWidth = train.offsetWidth;
+      train.style.setProperty('--train-width', `${trainWidth}px`);
+
+      if (direction === "right") {
+        train.style.left = "-250px";   // 從畫面左邊外側
+        train.style.animation = `moveRight ${duration} linear forwards`;
+      } else {
+        train.style.left = "100vw";    // 從畫面右邊外側
+        train.style.animation = `moveLeft ${duration} linear forwards`;
+      }
+
+      // 火車動畫結束後刪除元素，並生成下一輛
+      train.addEventListener("animationend", () => {
+        train.remove();
+        spawnTrain(); // 遞迴呼叫下一輛
+      });
+    }
+
+    // 一開始呼叫一次
+    spawnTrain();
+  </script>
+</body>
+</html>

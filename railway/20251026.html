@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>台鐵便當選單（響應式）</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      margin: 0;
+      background: url(./images/foodBack.png) no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Noto Sans TC", sans-serif;
+      overflow-x: hidden;
+      animation: bgMove 60s linear infinite alternate;
+      color: #003366;
+    }
+    @keyframes bgMove {
+      from { background-position: center center; }
+      to   { background-position: center bottom; }
+    }
+
+    header { width: 100vw; background-color: rgba(240, 248, 255, 0.557); }
+    header .nav1 { display:flex; align-items:center; padding: 12px 20px; gap: 20px; background-color: rgba(255,255,255,0.77); }
+    header .nav1 img { width: 180px; }
+    header .nav1 ul { list-style:none; display:flex; gap:16px; margin-left:auto; align-items:center; }
+    header .nav1 a { text-decoration:none; color: #003366; font-weight:600; }
+
+    .wholeBody { display:flex; gap: 24px; align-items:flex-start; padding: 20px; min-height: 70vh; }
+
+    /* ========== 左側按鈕區（桌面） ========== */
+    .boxMenu {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 40px 20px;
+      width: 220px;
+      z-index: 5;
+    }
+
+    /* 高質感按鈕基底（桌面與手機共用樣式） */
+    .menu-btn {
+      background: rgba(255, 255, 255, 0.25);
+      color: #003366;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.6);
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      backdrop-filter: blur(6px);
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+    .menu-btn::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -70%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+      transform: skewX(-25deg);
+      transition: left 0.45s;
+    }
+    .menu-btn:hover::after { left: 125%; }
+    .menu-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.42);
+    }
+    .menu-btn:active { transform: scale(0.98); }
+
+    /* 選中狀態（點選後保持） */
+    .menu-btn.active {
+      background: linear-gradient(135deg,#ff9933,#ff6600);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(255,102,0,0.18);
+    }
+
+    /* ========== 手機：三明治按鈕與下拉選單 ========== */
+    .hamburger {
+      display: none; /* 只有於小螢幕顯示 */
+      margin: 24px 8px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      transition: background 0.2s, transform 0.12s;
+    }
+    .hamburger:active { transform: scale(0.98); }
+    .hamburger .bar {
+      width: 20px; height: 2px; background: #fff; display:block; border-radius:1px; box-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .mobile-menu {
+      display: none; /* show when open */
+      position: absolute;
+      left: 12px;
+      top: 72px;
+      width: calc(100% - 24px);
+      max-width: 420px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      padding: 10px;
+      z-index: 30;
+    }
+    .mobile-menu .menu-btn {
+      width: 100%;
+      margin: 6px 0;
+      border-radius: 8px;
+      font-size: 16px;
+      padding: 12px 14px;
+    }
+
+    /* ========== 便當區 ========== */
+    .bento-container {
+      position: relative;
+      padding: 20px;
+      flex: 1;
+      min-height: 520px;
+    }
+    .bento-wrapper {
+      position: absolute;
+      top: 5vh;
+      left: 12vw;
+      width: 420px;
+      height: 420px;
+      opacity: 0;
+      transform: scale(0.6) rotate(-8deg);
+      transition: transform 0.9s ease-out, opacity 0.9s ease-out;
+      filter: drop-shadow(0 0 0 rgba(255,255,255,0));
+    }
+    .bento-wrapper.show {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.75));
+    }
+    .bento-img { width:100%; height:100%; border-radius: 10px; object-fit: cover; }
+
+    .bento-text {
+      position: absolute;
+      top: 20vh;
+      left: calc(12vw + 440px);
+      max-width: 36vw;
+    }
+    .bento-desc1 {
+      font-size: 42px; font-weight: 800; color: #ff6600;
+      background: rgba(255,255,255,0.9); padding: 8px 14px; border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      display:inline-block;
+    }
+    .bento-desc2 {
+      margin-top: 16px; font-size: 16px; line-height:1.8;
+      background: rgba(255,255,255,0.92); padding: 14px; border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    /* ========== 響應式斷點：當視窗小於 900px 時切換成手機選單 ========== */
+    /* 你可以調整 900px 為你想要的斷點 */
+    @media (max-width: 900px) {
+      .wholeBody { flex-direction: column; gap:12px; padding-bottom:40px; }
+      .boxMenu { display: none; }         /* 隱藏桌面左側按鈕 */
+      .hamburger { display: inline-flex; } /* 顯示三明治 */
+      .mobile-menu { display: none; position: static; width: calc(100% - 24px); margin: 8px 12px; } /* 把下拉區放在文件流中 */
+      .bento-wrapper { position: relative; left: 0; top: 0; width: 92%; height: 360px; margin: 8px auto; }
+      .bento-text { position: static; left: auto; top: auto; margin: 12px; max-width: calc(100% - 24px); }
+      header .nav1 ul { display: none; } /* 可選：在小畫面隱藏 header 右側選單 */
+    }
+
+    /* 當手機下拉開啟時顯示 */
+    .mobile-menu.open { display: block; }
+
+    /* 小螢幕內按鈕的 active 樣式（更明顯） */
+    @media (max-width:900px) {
+      .menu-btn.active { background: linear-gradient(135deg,#ff9933,#ff6600); color:#fff; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="nav1">
+      <img src="./images/logo.png" alt="logo">
+      <ul>
+        <li><a href="#">首頁</a></li>
+        <li><a href="#">車站便當</a></li>
+        <li><a href="#">聯名便當</a></li>
+        <li><a href="#">聯絡我們</a></li>
+      </ul>
+
+      <!-- 三明治按鈕（手機顯示） -->
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="bar" aria-hidden="true"></span>
+        <span style="font-weight:700; margin-left:8px;">選擇便當</span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="wholeBody">
+
+    <!-- 桌面版按鈕（在小螢幕會被隱藏） -->
+    <div class="boxMenu" id="boxMenu">
+      <button class="menu-btn" data-bento="pigbox">排骨便當</button>
+      <button class="menu-btn" data-bento="chickbox">雞腿便當</button>
+      <button class="menu-btn" data-bento="vibox">全素便當</button>
+    </div>
+
+    <!-- 手機下拉（初始隱藏，按三明治開啟） -->
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+      <button class="menu-btn" data-bento="pigbox">排骨便當</button>
+      <button class="menu-btn" data-bento="chickbox">雞腿便當</button>
+      <button class="menu-btn" data-bento="vibox">全素便當</button>
+    </div>
+
+    <!-- 便當顯示區 -->
+    <div class="bento-container">
+      <div id="pigbox" class="bento-wrapper">
+        <img src="./images/pigbox.png" class="bento-img" alt="排骨便當">
+      </div>
+      <div id="chickbox" class="bento-wrapper">
+        <img src="./images/chickbox.png" class="bento-img" alt="雞腿便當">
+      </div>
+      <div id="vibox" class="bento-wrapper">
+        <img src="./images/vibox.png" class="bento-img" alt="全素便當">
+      </div>
+
+      <div id="pigbox-text" class="bento-text" style="display:none">
+        <div class="bento-desc1">排骨便當</div>
+        <div class="bento-desc2">
+          <p>🍖 香滷排骨搭配台灣白米飯，配上蛋、豆製品與時令蔬菜。</p>
+          <p>每日限量供應，請提前預約。☎ 02-24553561</p>
+        </div>
+      </div>
+
+      <div id="chickbox-text" class="bento-text" style="display:none">
+        <div class="bento-desc1">雞腿便當</div>
+        <div class="bento-desc2">
+          <p>🍗 經典香滷雞腿，搭配三樣時蔬與滑嫩豆製品。</p>
+          <p>每日新鮮製作，限量供應。☎ 02-24553561</p>
+        </div>
+      </div>
+
+      <div id="vibox-text" class="bento-text" style="display:none">
+        <div class="bento-desc1">全素便當</div>
+        <div class="bento-desc2">
+          <p>🥦 豆包、高麗菜、香菇與多樣蔬食，健康清爽。</p>
+          <p>使用非基改豆製品，敬請安心食用。☎ 02-24553561</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 取得按鈕集合（桌面 + 手機版本），以及三明治按鈕與 mobileMenu
+    const desktopBtns = Array.from(document.querySelectorAll('#boxMenu .menu-btn'));
+    const mobileBtns = Array.from(document.querySelectorAll('#mobileMenu .menu-btn'));
+    const allBtns = desktopBtns.concat(mobileBtns);
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    // 切換 mobile menu 顯示
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      mobileMenu.setAttribute('aria-hidden', !open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    // showBento: 顯示對應便當（切換圖片與文字），並在按鈕間同步 active 樣式
+    let currentBento = null;
+    let currentText = null;
+
+    function showBento(wrapper) {
+      const textBlock = document.getElementById(wrapper.id + "-text");
+
+      // 隱藏上一次
+      if (currentBento && currentBento !== wrapper) {
+        currentBento.classList.remove('show');
+        if (currentText) currentText.style.display = 'none';
+      }
+
+      // 重新觸發動畫（若需要）
+      wrapper.classList.remove('show');
+      void wrapper.offsetWidth;
+      wrapper.classList.add('show');
+
+      // 顯示其文字區（手機版用 display 控制）
+      if (textBlock) textBlock.style.display = 'block';
+
+      currentBento = wrapper;
+      currentText = textBlock;
+    }
+
+    // 當某顆按鈕被按下時：設定 active 狀態、關閉 mobile menu（在手機）、顯示便當
+    function onMenuButtonClick(e) {
+      const btn = e.currentTarget;
+      const bentoId = btn.dataset.bento;
+      const wrapper = document.getElementById(bentoId);
+
+      // 清除所有按鈕的 active（桌機 + 手機）
+      allBtns.forEach(b => b.classList.remove('active'));
+
+      // 為同一功能的兩個按鈕都設 active（桌機與手機都有同個 data-bento）
+      // 找到所有具有相同 data-bento 的按鈕並加上 active
+      allBtns.filter(b => b.dataset.bento === bentoId).forEach(b => b.classList.add('active'));
+
+      // 顯示便當
+      showBento(wrapper);
+
+      // 若是在手機模式（mobileMenu visible），點選後自動收起下拉
+      if (mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // 綁定事件給桌機與手機按鈕
+    allBtns.forEach(b => b.addEventListener('click', onMenuButtonClick));
+
+    // 初始：顯示第一個便當（排骨）
+    document.addEventListener('DOMContentLoaded', () => {
+      const initial = document.querySelector('[data-bento="pigbox"]');
+      if (initial) initial.click();
+    });
+
+    // 可選：在視窗尺寸改變時，把 mobile menu 關掉（避免 resize 看到錯誤狀態）
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
+
+</body>
+</html>

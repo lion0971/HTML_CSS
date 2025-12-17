@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台鐵風格首頁 + 便當動畫頁面</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      overflow: hidden;
+      background: linear-gradient(to top, #bcdcff 0%, #ffffff 70%);
+      position: relative;
+      height: 100vh;
+    }
+
+    /* ========== 首頁區 ========== */
+    header {
+      width: 100vw;
+      height: 100vh;
+      background-image: url('./images/scenery.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      transition: opacity 1s ease;
+    }
+
+    header.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    header .nav1 {
+      display: flex;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.772);
+
+    }
+
+    header .nav1 img {
+      height: 7vh;
+      padding: 0 30px;
+      object-fit: contain;
+      /* 維持比例 */
+    }
+
+    header .nav1 ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header .nav1 ul li a {
+      text-decoration: none;
+      color: #003366;
+      font-size: large;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+        header .nav1 ul li a:hover {
+
+      color: #803300;
+
+      cursor: pointer;
+    }
+
+
+
+    .headertree {
+      position: absolute;
+      height: 30vh;
+      z-index: 10;
+      top: 80vh;
+      overflow: hidden;
+    }
+
+    .headertree img {
+      width: 100%;
+
+    }
+
+
+    .train {
+      position: absolute;
+      bottom: 7vh;
+      width: 100vw;
+      height: auto;
+      pointer-events: none;
+    }
+
+    @keyframes moveRight {
+      from {
+        transform: translateX(-150vw);
+      }
+
+      to {
+        transform: translateX(200vw);
+      }
+    }
+
+    @keyframes moveLeft {
+      from {
+        transform: translateX(0) scaleX(-1);
+      }
+
+      to {
+        transform: translateX(calc(-110vw - var(--train-width))) scaleX(-1);
+      }
+    }
+
+
+    .box {
+      background-color: rgba(255, 255, 255, 0.858);
+      width: 75vw;
+      height: 100vh;
+      margin: 15px;
+      padding: 15px;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.3);
+      color: #003366;
+      border-radius: 10px;
+      border: 4px solid;
+      border-image: linear-gradient(to right, rgba(0, 51, 102, 0.8), rgba(255, 255, 255, 0)) 1;
+      padding: 12px 30px;
+      font-size: 18px;
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /*手機*/
+    /* 漢堡按鈕預設隱藏 */
+    .hamburger {
+      display: none;
+      font-size: 30px;
+      color: #0000ff;
+      /* 橘色，呼應便當質感 */
+      cursor: pointer;
+      user-select: none;
+
+      z-index: 10;
+      align-items: center;
+    }
+
+    /* 下拉選單預設隱藏 */
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 200px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .dropdown-menu button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 14px 20px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .dropdown-menu button:hover {
+      background: rgba(255, 140, 0, 0.85);
+      color: #fff;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+
+
+      .train {
+        top: 80vh;
+      }
+
+      .boxMenu {
+        display: none;
+        /* 隱藏原本左側按鈕 */
+      }
+
+      header .nav1 ul {
+
+        display: none;
+        /* 隱藏原本左側按鈕 */
+      }
+
+
+      /* 漢堡按鈕預設隱藏 */
+      .hamburger {
+        display: block;
+
+      }
+
+      .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        opacity: 0;
+        transform: translateY(-20px);
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-menu.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ====== 首頁區 ====== -->
+  <header id="home">
+    <nav class="nav1">
+      <img src="./images/logo.png" alt="">
+      <ul class="ul1">
+        <li><a href="./index.html">首頁</a></li>
+        <li><a href="./stationBox.html">車站便當</a></li>
+        <li><a href="./coBrandingBox.html">聯名便當</a></li>
+        <li><a href="./merch.html">周邊商品</a></li>
+      </ul>
+      <!-- 漢堡按鈕 -->
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+    <div class="headertree">
+      <img src="./images/scenery-2.png" alt="">
+    </div>
+
+
+
+    <!-- 下拉選單 -->
+    <div class="dropdown-menu">
+      <button onclick="location.href='./index.html'">首頁</button>
+      <button onclick="location.href='./stationBox.html'">車站便當</button>
+      <button onclick="location.href='./coBrandingBox.html'">聯名便當</button>
+      <button onclick="location.href='./merch.html'">周邊商品</button>
+    </div>
+
+
+  </header>
+
+
+  <script>
+    /* 🔹 首頁火車動畫 */
+    const trainImages = ["./images/orange_car.png", "./images/blue_car.png"];
+
+    function spawnTrain() {
+  const train = document.createElement("img");
+  train.src = trainImages[Math.floor(Math.random() * trainImages.length)];
+  train.classList.add("train");
+
+  document.body.appendChild(train);
+
+  train.onload = () => {
+    const trainWidth = train.offsetWidth;
+    train.style.setProperty("--train-width", `${trainWidth}px`);
+
+    const direction = Math.random() > 0.5 ? "right" : "left";
+    const duration = (5 + Math.random() * 5).toFixed(1) + "s"; // 5–10秒
+
+    if (direction === "right") {
+      train.style.left = `-${trainWidth}px`;
+      train.style.transform = "translateX(0)";
+      train.style.animation = `moveRight ${duration} linear forwards`;
+    } else {
+      train.style.left = "100vw";
+      train.style.transform = "translateX(0) scaleX(-1)";
+      train.style.animation = `moveLeft ${duration} linear forwards`;
+    }
+
+    train.addEventListener("animationend", () => {
+      train.remove();
+      setTimeout(spawnTrain, Math.random() * 2000);
+    });
+  };
+
+  train.onerror = () => {
+    console.warn("圖片載入失敗：", train.src);
+    train.remove();
+    spawnTrain();
+  };
+}
+
+window.addEventListener("load", () => {
+  spawnTrain(); // 一進頁面就跑第一台火車
+});
+
+
+window.addEventListener("load", () => {
+  setTimeout(spawnTrain, 300); // 延遲 0.3 秒再出現火車
+});
+
+
+
+
+    /*-----------------------------
+      手機版選單 toggle
+    -----------------------------*/
+    function toggleMenu() {
+      const menu = document.querySelector(".dropdown-menu");
+      menu.classList.toggle("show");
+    }
+
+    // 手機版按鈕也能顯示內容
+    const dropdownButtons = document.querySelectorAll(".dropdown-menu button");
+    dropdownButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const bentoId = btn.dataset.bento;
+        const wrapper = document.getElementById(bentoId);
+        showBento(wrapper);
+      });
+    });
+
+    // 點外部關閉選單
+    document.addEventListener("click", function (event) {
+      const menu = document.querySelector(".dropdown-menu");
+      const hamburger = document.querySelector(".hamburger");
+      if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+
+</html>
